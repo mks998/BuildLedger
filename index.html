@@ -137,6 +137,25 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.5);}
 .pending-row:last-child{border-bottom:none;}
 .empty{text-align:center;color:#475569;padding:30px;font-size:13px;}
 
+/* Payment History */
+.pay-history-wrap{margin-top:10px;border-top:1px solid #1E293B;padding-top:10px;}
+.pay-history-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.pay-history-label{font-size:11px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:0.5px;}
+.add-payment-btn{background:#0F172A;border:1px solid #334155;color:#F59E0B;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:600;cursor:pointer;}
+.pay-entry{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid #0F172A;}
+.pay-entry:last-child{border-bottom:none;}
+.pay-entry-left{flex:1;min-width:0;}
+.pay-entry-date{font-size:11px;color:#64748B;}
+.pay-entry-amount{font-size:14px;font-weight:700;color:#10B981;}
+.pay-entry-mode{display:inline-block;background:#10B98122;color:#10B981;padding:1px 7px;border-radius:10px;font-size:10px;font-weight:600;margin-left:6px;}
+.pay-entry-note{font-size:11px;color:#475569;margin-top:2px;}
+.pay-entry-del{background:none;border:none;color:#EF444488;cursor:pointer;font-size:13px;padding:2px 4px;flex-shrink:0;}
+.pay-entry-del:hover{color:#EF4444;}
+.pay-summary{display:flex;gap:14px;padding:8px 10px;background:#080F1E;border-radius:7px;margin-bottom:8px;}
+.pay-sum-item{text-align:center;}
+.pay-sum-lbl{font-size:9px;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;}
+.pay-sum-val{font-size:13px;font-weight:700;margin-top:2px;}
+
 /* Toast */
 #toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:#0F172A;border:1px solid #334155;color:#E2E8F0;font-size:12px;padding:8px 18px;border-radius:20px;z-index:9999;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap;}
 #toast.show{opacity:1;}
@@ -322,6 +341,50 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.5);}
     <div class="btn-row">
       <button class="btn-s" onclick="cancelNewProj()">Cancel</button>
       <button class="btn-p" onclick="confirmNewProj()">Create & Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD PAYMENT MODAL -->
+<div class="overlay" id="addpay-overlay" onclick="closePayModal(event)">
+  <div class="modal" style="max-height:70vh;" onclick="event.stopPropagation()">
+    <div class="modal-hdr">
+      <span class="modal-title">💳 Add Payment</span>
+      <button class="close-btn" onclick="closePayModal()">✕</button>
+    </div>
+    <div style="background:#080F1E;border-radius:8px;padding:10px 12px;margin-bottom:14px;">
+      <div style="color:#94A3B8;font-size:11px;">Expense</div>
+      <div style="color:#E2E8F0;font-size:13px;font-weight:600;margin-top:2px;" id="addpay-exp-desc"></div>
+      <div style="display:flex;gap:14px;margin-top:8px;">
+        <div><div style="color:#64748B;font-size:10px;">Total</div><div style="color:#E2E8F0;font-size:13px;font-weight:700;" id="addpay-total"></div></div>
+        <div><div style="color:#64748B;font-size:10px;">Already Paid</div><div style="color:#10B981;font-size:13px;font-weight:700;" id="addpay-paid"></div></div>
+        <div><div style="color:#64748B;font-size:10px;">Remaining</div><div style="color:#EF4444;font-size:13px;font-weight:700;" id="addpay-remaining"></div></div>
+      </div>
+    </div>
+    <input type="hidden" id="addpay-exp-id"/>
+    <div class="form-row">
+      <div class="fg"><label class="fl">Date *</label><input type="date" class="fi" id="ap-date"/></div>
+      <div class="fg"><label class="fl">Amount (₹) *</label><input type="number" inputmode="numeric" class="fi" id="ap-amount" placeholder="0"/></div>
+    </div>
+    <div class="form-row">
+      <div class="fg"><label class="fl">Payment Mode *</label>
+        <select class="fi" id="ap-mode">
+          <option>Cash</option><option>Bank Transfer</option><option>Cheque</option><option>UPI</option><option>Other</option>
+        </select>
+      </div>
+      <div class="fg"><label class="fl">Received By</label>
+        <input class="fi" id="ap-receiver" placeholder="Who received?"/>
+      </div>
+    </div>
+    <div class="fg"><label class="fl">Reference / Receipt No.</label>
+      <input class="fi" id="ap-ref" placeholder="Cheque no, UPI ref, receipt no..."/>
+    </div>
+    <div class="fg"><label class="fl">Notes</label>
+      <input class="fi" id="ap-note" placeholder="e.g. Paid cash at site, witnessed by Ramesh..."/>
+    </div>
+    <div class="btn-row">
+      <button class="btn-s" onclick="closePayModal()">Cancel</button>
+      <button class="btn-p" onclick="savePayment()">Add Payment</button>
     </div>
   </div>
 </div>
@@ -822,7 +885,34 @@ function expCard(e){
   const cat=CATS[e.category]||{icon:"📦",color:"#888"};
   const pend=e.totalAmount-e.paidAmount;
   const pct=e.totalAmount?Math.min(100,(e.paidAmount/e.totalAmount*100)):0;
+  const payments=e.payments||[];
+  const totalLoggedPaid=payments.reduce((s,p)=>s+p.amount,0);
+
+  // Payment entries list
+  const payEntries=payments.length===0
+    ?`<div style="color:#475569;font-size:12px;text-align:center;padding:12px 0 4px;">
+        No payments logged yet. Tap <b style="color:#F59E0B;">+ Add Payment</b> below to record one.
+      </div>`
+    :payments.slice().reverse().map((p,ri)=>{
+        const realIdx=payments.length-1-ri;
+        return `<div class="pay-entry">
+          <div class="pay-entry-left">
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+              <span class="pay-entry-amount">${fmt(p.amount)}</span>
+              <span class="pay-entry-mode">${p.mode}</span>
+              <span class="pay-entry-date">${p.date}</span>
+            </div>
+            ${p.receiver?`<div class="pay-entry-note">👤 Received by: <b style="color:#CBD5E1;">${p.receiver}</b></div>`:""}
+            ${p.ref?`<div class="pay-entry-note">🔖 Ref: <b style="color:#CBD5E1;">${p.ref}</b></div>`:""}
+            ${p.note?`<div class="pay-entry-note">📝 ${p.note}</div>`:""}
+          </div>
+          <button class="pay-entry-del" onclick="deletePayment('${e.id}',${realIdx})" title="Remove this payment">✕</button>
+        </div>`;
+      }).join("");
+
   return `<div class="exp-card">
+
+    <!-- Top: category + action buttons -->
     <div class="exp-top">
       <div style="flex:1;min-width:0;">
         <span class="cat-pill" style="background:${cat.color}22;color:${cat.color};">${cat.icon} ${e.subTag}</span>
@@ -831,17 +921,62 @@ function expCard(e){
         ${e.notes?`<div class="exp-note">📝 ${e.notes}</div>`:""}
       </div>
       <div class="exp-btns">
-        <button class="icon-btn" onclick="openEditModal('${e.id}')">✏️</button>
-        <button class="icon-btn" onclick="askDelete('${e.id}')">🗑️</button>
+        <button class="icon-btn" onclick="openEditModal('${e.id}')" title="Edit expense">✏️</button>
+        <button class="icon-btn" onclick="askDelete('${e.id}')" title="Delete expense">🗑️</button>
       </div>
     </div>
+
+    <!-- Amount summary row -->
     <div class="exp-nums">
       <div><div class="num-lbl">Total</div><div class="num-val" style="color:#E2E8F0;">${fmt(e.totalAmount)}</div></div>
       <div><div class="num-lbl">Paid</div><div class="num-val" style="color:#10B981;">${fmt(e.paidAmount)}</div></div>
       <div><div class="num-lbl">Pending</div><div class="num-val" style="color:${pend>0?"#EF4444":"#10B981"};">${fmt(pend)}</div></div>
       <span class="s-badge" style="background:${sbg(e.status)};color:${sc(e.status)};">${e.status}</span>
     </div>
-    <div class="prog"><div class="prog-fill" style="width:${pct}%;background:${cat.color};"></div></div>
+
+    <!-- Progress bar -->
+    <div class="prog" style="margin-bottom:0;">
+      <div class="prog-fill" style="width:${pct}%;background:${cat.color};"></div>
+    </div>
+
+    <!-- ═══ PAYMENT HISTORY SECTION — always visible ═══ -->
+    <div style="margin-top:12px;background:#080F1E;border-radius:8px;padding:10px 12px;">
+
+      <!-- Header row with count + ADD BUTTON always shown -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="display:flex;align-items:center;gap:7px;">
+          <span style="font-size:14px;">💳</span>
+          <span style="font-size:12px;font-weight:700;color:#CBD5E1;">Payment History</span>
+          <span style="background:#1E293B;color:#94A3B8;border-radius:10px;padding:1px 7px;font-size:11px;font-weight:600;">${payments.length}</span>
+        </div>
+        <!-- + Add Payment button — ALWAYS visible, prominent green button -->
+        <button onclick="openPayModal('${e.id}')"
+          style="background:#10B981;color:#000;border:none;border-radius:7px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:4px;">
+          ＋ Add Payment
+        </button>
+      </div>
+
+      <!-- Summary bar if there are payments -->
+      ${payments.length>0?`
+        <div style="display:flex;gap:0;background:#0A1628;border-radius:7px;overflow:hidden;margin-bottom:8px;">
+          <div style="flex:1;padding:7px 10px;border-right:1px solid #1E293B;">
+            <div style="color:#64748B;font-size:9px;text-transform:uppercase;letter-spacing:0.5px;">Entries</div>
+            <div style="color:#E2E8F0;font-size:13px;font-weight:700;">${payments.length}</div>
+          </div>
+          <div style="flex:1;padding:7px 10px;border-right:1px solid #1E293B;">
+            <div style="color:#64748B;font-size:9px;text-transform:uppercase;letter-spacing:0.5px;">Logged Paid</div>
+            <div style="color:#10B981;font-size:13px;font-weight:700;">${fmt(totalLoggedPaid)}</div>
+          </div>
+          <div style="flex:1;padding:7px 10px;">
+            <div style="color:#64748B;font-size:9px;text-transform:uppercase;letter-spacing:0.5px;">Still Due</div>
+            <div style="color:${pend>0?"#EF4444":"#10B981"};font-size:13px;font-weight:700;">${fmt(pend)}</div>
+          </div>
+        </div>`:""}
+
+      <!-- Individual payment entries -->
+      ${payEntries}
+    </div>
+
   </div>`;
 }
 
@@ -1008,6 +1143,83 @@ function drawHBar(id,data){
     const bw=Math.max(0,(v/maxVal)*bz);
     ctx.fillStyle=cols[i%cols.length];rr(ctx,lw,y+7,bw,14,3);ctx.fill();
   });
+}
+
+// ══════════════════════════════════════════════════════════
+// PAYMENT HISTORY
+// ══════════════════════════════════════════════════════════
+function openPayModal(expId){
+  const e=projectData.expenses.find(x=>x.id===expId);
+  if(!e)return;
+  const pend=e.totalAmount-e.paidAmount;
+  document.getElementById("addpay-exp-id").value=expId;
+  document.getElementById("addpay-exp-desc").textContent=e.description;
+  document.getElementById("addpay-total").textContent=fmt(e.totalAmount);
+  document.getElementById("addpay-paid").textContent=fmt(e.paidAmount);
+  document.getElementById("addpay-remaining").textContent=fmt(pend);
+  document.getElementById("ap-date").value=new Date().toISOString().split("T")[0];
+  document.getElementById("ap-amount").value=pend>0?pend:"";
+  document.getElementById("ap-mode").value="Cash";
+  document.getElementById("ap-receiver").value="";
+  document.getElementById("ap-ref").value="";
+  document.getElementById("ap-note").value="";
+  document.getElementById("addpay-overlay").classList.add("open");
+  document.body.style.overflow="hidden";
+  setTimeout(()=>document.getElementById("ap-amount").focus(),100);
+}
+function closePayModal(e){
+  if(e&&e.target!==document.getElementById("addpay-overlay"))return;
+  document.getElementById("addpay-overlay").classList.remove("open");
+  document.body.style.overflow="";
+}
+
+function savePayment(){
+  const expId=document.getElementById("addpay-exp-id").value;
+  const amount=parseFloat(document.getElementById("ap-amount").value)||0;
+  const date=document.getElementById("ap-date").value;
+  if(!amount||!date){alert("Please fill: Date and Amount");return;}
+
+  const e=projectData.expenses.find(x=>x.id===expId);
+  if(!e)return;
+
+  const payment={
+    id:uid(),
+    date,
+    amount,
+    mode:document.getElementById("ap-mode").value,
+    receiver:document.getElementById("ap-receiver").value.trim(),
+    ref:document.getElementById("ap-ref").value.trim(),
+    note:document.getElementById("ap-note").value.trim(),
+    addedAt:new Date().toISOString()
+  };
+
+  if(!e.payments)e.payments=[];
+  e.payments.push(payment);
+
+  // Update the paidAmount and status automatically
+  const totalPaid=e.payments.reduce((s,p)=>s+p.amount,0);
+  e.paidAmount=Math.min(totalPaid,e.totalAmount);
+  e.status=e.paidAmount>=e.totalAmount?"Paid":e.paidAmount>0?"Partially Paid":"Pending";
+
+  document.getElementById("addpay-overlay").classList.remove("open");
+  document.body.style.overflow="";
+  markUnsaved();
+  refreshCurrentTab();
+  toast("💳 Payment of "+fmt(amount)+" recorded!");
+}
+
+function deletePayment(expId,payIdx){
+  if(!confirm("Remove this payment entry?"))return;
+  const e=projectData.expenses.find(x=>x.id===expId);
+  if(!e||!e.payments)return;
+  e.payments.splice(payIdx,1);
+  // Recalculate paidAmount from remaining payments
+  const totalPaid=e.payments.reduce((s,p)=>s+p.amount,0);
+  e.paidAmount=Math.min(totalPaid,e.totalAmount);
+  e.status=e.paidAmount>=e.totalAmount?"Paid":e.paidAmount>0?"Partially Paid":"Pending";
+  markUnsaved();
+  refreshCurrentTab();
+  toast("Payment entry removed");
 }
 
 // ══════════════════════════════════════════════════════════
