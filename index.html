@@ -8,8 +8,7 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{min-height:100%;background:#020817;color:#E2E8F0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-x:hidden;}
 ::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-thumb{background:#334155;border-radius:3px;}
-input,select,button{font-family:inherit;}
-select{-webkit-appearance:none;}
+input,select,button{font-family:inherit;}select{-webkit-appearance:none;}
 input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.5);}
 .bg-grid{position:fixed;inset:0;pointer-events:none;z-index:0;
   background-image:linear-gradient(rgba(245,158,11,0.04)1px,transparent 1px),linear-gradient(90deg,rgba(245,158,11,0.04)1px,transparent 1px);
@@ -25,13 +24,10 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.5);}
 .fb{display:flex;align-items:center;gap:12px;width:100%;border:none;border-radius:10px;padding:14px 16px;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:10px;}
 .fb-new{background:linear-gradient(135deg,#F59E0B,#F97316);color:#000;}
 .fb-open{background:#0F172A;color:#E2E8F0;border:1px solid #334155;}
-.fb-icon{font-size:22px;flex-shrink:0;}
-.fb-lbl{font-size:14px;font-weight:700;}
-.fb-desc{font-size:11px;opacity:0.65;margin-top:1px;font-weight:400;}
-.recent-sect{margin-top:18px;}
-.recent-title{color:#64748B;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+.fb-lbl{font-size:14px;font-weight:700;}.fb-desc{font-size:11px;opacity:.65;margin-top:1px;font-weight:400;}
 .ri{display:flex;align-items:center;gap:10px;padding:9px 12px;background:#0F172A;border:1px solid #1E293B;border-radius:8px;cursor:pointer;margin-bottom:7px;}
 .ri:hover{border-color:#F59E0B;}
+.rec-title{color:#64748B;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
 .fc-note{color:#475569;font-size:11px;text-align:center;margin-top:14px;line-height:1.6;}
 
 /* HEADER */
@@ -42,8 +38,13 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.5);}
 .hbtns{display:flex;gap:6px;align-items:center;flex-shrink:0;}
 .save-btn{background:#10B981;color:#000;border:none;padding:7px 14px;border-radius:7px;font-weight:700;font-size:13px;cursor:pointer;}
 .save-btn:disabled{background:#1E293B;color:#64748B;cursor:not-allowed;}
-.add-btn{background:linear-gradient(135deg,#F59E0B,#F97316);color:#000;border:none;padding:7px 14px;border-radius:7px;font-weight:700;font-size:13px;cursor:pointer;}
 .menu-btn{background:#0F172A;border:1px solid #1E293B;color:#94A3B8;padding:7px 10px;border-radius:7px;font-size:13px;cursor:pointer;}
+
+/* FAB */
+#fab{position:fixed;bottom:24px;right:18px;z-index:80;display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+.fab-main{background:linear-gradient(135deg,#F59E0B,#F97316);color:#000;border:none;border-radius:50px;padding:12px 20px;font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 4px 20px #F59E0B44;display:flex;align-items:center;gap:6px;}
+.fab-sub{background:#0A1628;border:1px solid #334155;color:#E2E8F0;border-radius:50px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 2px 12px #00000066;display:none;align-items:center;gap:6px;white-space:nowrap;}
+.fab-sub.show{display:flex;}
 
 /* NAV */
 #nav{display:flex;background:#020817;border-bottom:1px solid #0F172A;position:sticky;top:53px;z-index:90;}
@@ -52,7 +53,7 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.5);}
 .nb .ni{font-size:17px;}
 
 /* MAIN */
-#main{padding:14px;max-width:740px;margin:0 auto;}
+#main{padding:14px 14px 90px;max-width:740px;margin:0 auto;}
 .tab{display:none;}.tab.active{display:block;}
 
 /* KPI */
@@ -64,58 +65,57 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.5);}
 .kb{margin-top:7px;background:#1E293B;border-radius:3px;height:5px;}
 .kbf{height:5px;border-radius:3px;transition:width 0.5s;}
 
-/* VENDOR CARD — main unit */
+/* VENDOR CARD */
 .vc{background:#0A1628;border:1px solid #1E293B;border-radius:12px;margin-bottom:14px;overflow:hidden;}
-.vc-hdr{background:#050E1D;padding:14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #1E293B;}
-.vc-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#F59E0B44,#6366F144);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#E2E8F0;flex-shrink:0;}
-.vc-name{color:#E2E8F0;font-size:15px;font-weight:700;}
-.vc-cat{color:#64748B;font-size:11px;margin-top:2px;}
-.vc-hdr-right{margin-left:auto;text-align:right;flex-shrink:0;}
-.vc-hdr-btns{display:flex;gap:6px;margin-left:auto;flex-shrink:0;}
-.ib{background:#0F172A;border:1px solid #1E293B;border-radius:7px;padding:5px 8px;cursor:pointer;font-size:12px;color:#94A3B8;}
+.vc.misc-vendor{border-color:#F97316;}
+.vc-hdr{background:#050E1D;padding:12px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #1E293B;}
+.vc-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#E2E8F0;flex-shrink:0;}
+.vc-name{color:#E2E8F0;font-size:14px;font-weight:700;}
+.vc-cat{color:#64748B;font-size:11px;margin-top:1px;}
+.vc-hdr-btns{display:flex;gap:5px;margin-left:auto;flex-shrink:0;}
+.ib{background:#0F172A;border:1px solid #1E293B;border-radius:6px;padding:5px 8px;cursor:pointer;font-size:12px;color:#94A3B8;}
 
-/* TOTALS BAR inside vendor card */
+/* TOTALS */
 .vc-totals{display:flex;border-bottom:1px solid #1E293B;}
-.vc-tot-item{flex:1;padding:10px 12px;text-align:center;border-right:1px solid #1E293B;}
-.vc-tot-item:last-child{border-right:none;}
-.vc-tot-lbl{color:#64748B;font-size:9px;text-transform:uppercase;letter-spacing:0.5px;}
-.vc-tot-val{font-size:14px;font-weight:700;margin-top:3px;}
+.vt{flex:1;padding:9px 10px;text-align:center;border-right:1px solid #1E293B;}
+.vt:last-child{border-right:none;}
+.vt-lbl{color:#64748B;font-size:9px;text-transform:uppercase;letter-spacing:0.4px;}
+.vt-val{font-size:13px;font-weight:700;margin-top:2px;}
 .vc-prog{height:3px;background:#1E293B;}
 .vc-prog-fill{height:3px;transition:width 0.5s;}
 
-/* SECTION inside card */
-.vc-sect{padding:0 14px;}
-.vc-sect-hdr{display:flex;justify-content:space-between;align-items:center;padding:10px 0 6px;}
-.vc-sect-title{font-size:11px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:0.5px;}
-.vc-add-btn{border:none;border-radius:7px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer;}
-.vc-add-purchase{background:#6366F122;color:#818CF8;}
-.vc-add-payment{background:#10B98122;color:#10B981;}
+/* SECTION */
+.vc-sect{padding:0 12px;}
+.vc-sh{display:flex;justify-content:space-between;align-items:center;padding:9px 0 5px;}
+.vc-st{font-size:10px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:0.5px;}
+.vadd{border:none;border-radius:6px;padding:5px 11px;font-size:11px;font-weight:700;cursor:pointer;}
+.vadd-p{background:#6366F122;color:#818CF8;}
+.vadd-pay{background:#10B98122;color:#10B981;}
+.vadd-misc{background:#F9741622;color:#F97316;}
 
 /* PURCHASE ROW */
-.pr{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid #0F172A;}
+.pr{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid #0F172A;}
 .pr:last-child{border-bottom:none;}
 .pr-left{flex:1;min-width:0;}
-.pr-date{font-size:10px;color:#64748B;margin-bottom:2px;}
+.pr-date{font-size:10px;color:#64748B;}
 .pr-desc{color:#E2E8F0;font-size:13px;font-weight:600;}
-.pr-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:3px;}
+.pr-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:3px;align-items:center;}
 .pr-pill{padding:1px 7px;border-radius:4px;font-size:10px;font-weight:600;}
-.pr-amt{color:#E2E8F0;font-size:13px;font-weight:700;flex-shrink:0;text-align:right;}
-.pr-del{background:none;border:none;color:#EF444866;cursor:pointer;font-size:12px;padding:2px 4px;}
-.pr-del:hover{color:#EF4444;}
+.pr-paid-badge{padding:1px 7px;border-radius:10px;font-size:10px;font-weight:600;}
+.pr-amt{color:#E2E8F0;font-size:13px;font-weight:700;flex-shrink:0;text-align:right;min-width:60px;}
+.row-btns{display:flex;gap:2px;flex-shrink:0;}
+.rdb{background:none;border:none;cursor:pointer;font-size:12px;padding:3px 5px;color:#64748B;}
+.rdb:hover{color:#E2E8F0;}
 
 /* PAYMENT ROW */
-.pymr{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid #0F172A;}
+.pymr{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid #0F172A;}
 .pymr:last-child{border-bottom:none;}
 .pymr-left{flex:1;min-width:0;}
-.pymr-date{font-size:10px;color:#64748B;}
 .pymr-amount{font-size:14px;font-weight:700;color:#10B981;}
-.pymr-mode{display:inline-block;background:#10B98122;color:#10B981;padding:1px 7px;border-radius:10px;font-size:10px;font-weight:600;margin-left:5px;}
+.pymr-mode{display:inline-block;background:#10B98120;color:#10B981;padding:1px 7px;border-radius:10px;font-size:10px;font-weight:600;margin-left:4px;}
+.pymr-date{font-size:10px;color:#64748B;margin-left:4px;}
 .pymr-detail{font-size:11px;color:#475569;margin-top:2px;}
-.pymr-del{background:none;border:none;color:#EF444866;cursor:pointer;font-size:12px;padding:2px 4px;}
-.pymr-del:hover{color:#EF4444;}
-
-/* SHOW MORE */
-.show-more-btn{width:100%;background:none;border:none;color:#64748B;font-size:12px;padding:8px;cursor:pointer;border-top:1px solid #0F172A;text-align:center;}
+.show-more-btn{width:100%;background:none;border:none;color:#64748B;font-size:12px;padding:7px;cursor:pointer;border-top:1px solid #0F172A;text-align:center;}
 .show-more-btn:hover{color:#F59E0B;}
 
 /* FORM */
@@ -123,10 +123,18 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.5);}
 .fl{color:#64748B;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
 .fi{background:#0F172A;border:1px solid #1E293B;border-radius:8px;color:#E2E8F0;padding:10px 12px;font-size:14px;outline:none;width:100%;transition:border-color 0.2s;}
 .fi:focus{border-color:#F59E0B;}
-.fi-sm{padding:8px 10px;font-size:13px;}
 .fr{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 
-/* OVERLAYS */
+/* Payment toggle inside purchase form */
+.pay-toggle{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
+.pt{border:1px solid #334155;border-radius:20px;padding:5px 13px;font-size:12px;cursor:pointer;font-weight:500;background:#1E293B;color:#94A3B8;transition:all 0.15s;}
+.pt.active-full{background:#10B981;color:#000;border-color:#10B981;font-weight:700;}
+.pt.active-partial{background:#F59E0B;color:#000;border-color:#F59E0B;font-weight:700;}
+.pt.active-no{background:#EF4444;color:#fff;border-color:#EF4444;font-weight:700;}
+.pay-inline{background:#080F1E;border-radius:8px;padding:10px 12px;margin-top:8px;display:none;}
+.pay-inline.show{display:block;}
+
+/* OVERLAY */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px);}
 .overlay.open{display:flex;}
 .modal{background:#0A1628;border:1px solid #334155;border-radius:18px 18px 0 0;padding:18px;width:100%;max-height:92vh;overflow-y:auto;}
@@ -137,6 +145,10 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.5);}
 .btn-s{background:#1E293B;color:#94A3B8;border:1px solid #334155;padding:11px;border-radius:8px;font-weight:600;font-size:14px;cursor:pointer;flex:1;}
 .btn-d{background:#EF4444;color:#fff;border:none;padding:11px;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;flex:1;}
 .brow{display:flex;gap:8px;margin-top:14px;}
+.info-box{background:#080F1E;border-radius:8px;padding:10px 12px;margin-bottom:12px;}
+.info-lbl{color:#94A3B8;font-size:11px;margin-bottom:5px;}
+.info-nums{display:flex;gap:14px;flex-wrap:wrap;}
+.in-l{color:#64748B;font-size:10px;}.in-v{font-size:13px;font-weight:700;margin-top:1px;}
 
 /* MENU */
 #menu-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;}
@@ -145,55 +157,47 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.5);}
 .mp-title{color:#64748B;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin:8px 0 4px;}
 .mi{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#0F172A;border:1px solid #1E293B;border-radius:8px;cursor:pointer;font-size:13px;color:#CBD5E1;font-weight:500;}
 .mi:hover{border-color:#F59E0B;color:#F59E0B;}
-.mi-icon{font-size:17px;}
 
 /* MISC */
 .empty{text-align:center;color:#475569;padding:28px;font-size:13px;}
 .card{background:#0A1628;border:1px solid #1E293B;border-radius:10px;padding:14px;margin-bottom:12px;}
 .card-title{font-size:11px;font-weight:700;color:#94A3B8;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;}
-.filter-bar{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
 .sbadge{padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;}
 .atab{width:100%;border-collapse:collapse;font-size:12px;}
 .atab th{color:#64748B;font-size:10px;font-weight:600;padding:6px 8px;text-align:left;border-bottom:1px solid #1E293B;text-transform:uppercase;}
 .atab td{padding:8px;border-bottom:1px solid #0F172A;vertical-align:middle;}
 #toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:#0F172A;border:1px solid #334155;color:#E2E8F0;font-size:12px;padding:8px 18px;border-radius:20px;z-index:9999;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap;}
 #toast.show{opacity:1;}
-
-/* info box inside modal */
-.info-box{background:#080F1E;border-radius:8px;padding:10px 12px;margin-bottom:14px;}
-.info-box-title{color:#94A3B8;font-size:11px;margin-bottom:6px;}
-.info-nums{display:flex;gap:14px;}
-.in-lbl{color:#64748B;font-size:10px;}
-.in-val{font-size:13px;font-weight:700;margin-top:2px;}
+.divider{height:1px;background:#1E293B;margin:8px 0;}
 </style>
 </head>
 <body>
 <div class="bg-grid"></div>
 <div id="app">
 
-<!-- ══ FILE SCREEN ══ -->
+<!-- FILE SCREEN -->
 <div id="file-screen">
   <div class="fc">
     <div class="fc-logo">🏠</div>
     <div class="fc-title">BuildLedger</div>
     <div class="fc-sub">Vendor-wise construction expense tracker.<br/>Each project saved as a file on your device.</div>
     <button class="fb fb-new" onclick="newFile()">
-      <span class="fb-icon">📄</span>
+      <span style="font-size:22px;">📄</span>
       <div><div class="fb-lbl">New Project</div><div class="fb-desc">Create a new .buildledger file</div></div>
     </button>
     <button class="fb fb-open" onclick="openFile()">
-      <span class="fb-icon">📂</span>
+      <span style="font-size:22px;">📂</span>
       <div><div class="fb-lbl">Open Existing</div><div class="fb-desc">Load a .buildledger file</div></div>
     </button>
-    <div class="recent-sect" id="recent-sect" style="display:none;">
-      <div class="recent-title">Recent Projects</div>
+    <div id="recent-sect" style="display:none;margin-top:18px;">
+      <div class="rec-title">Recent Projects</div>
       <div id="recent-list"></div>
     </div>
-    <div class="fc-note" id="fs-note">Works best on Chrome / Edge desktop.<br/>On mobile, use Open to pick your file each time.</div>
+    <div class="fc-note" id="fs-note">Works best on Chrome/Edge desktop.<br/>On mobile, use Open to pick your file each time.</div>
   </div>
 </div>
 
-<!-- ══ MAIN APP ══ -->
+<!-- MAIN APP -->
 <div id="main-app" style="display:none;">
   <div id="hdr">
     <div style="display:flex;align-items:center;gap:8px;">
@@ -205,7 +209,6 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.5);}
     </div>
     <div class="hbtns">
       <button class="save-btn" id="save-btn" onclick="saveFile()" disabled>💾 Save</button>
-      <button class="add-btn" onclick="openVendorModal()">+ Vendor</button>
       <button class="menu-btn" onclick="openMenu()">☰</button>
     </div>
   </div>
@@ -218,12 +221,19 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.5);}
 
   <div id="main">
     <div id="tab-dashboard" class="tab active"></div>
-    <div id="tab-vendors"   class="tab"></div>
-    <div id="tab-analysis"  class="tab"></div>
+    <div id="tab-vendors" class="tab"></div>
+    <div id="tab-analysis" class="tab"></div>
+  </div>
+
+  <!-- FAB -->
+  <div id="fab">
+    <div class="fab-sub" id="fab-misc" onclick="openMiscModal();closeFab()">📦 Misc / Small Expense</div>
+    <div class="fab-sub" id="fab-vendor" onclick="openVendorModal();closeFab()">🏪 Add New Vendor</div>
+    <button class="fab-main" id="fab-main-btn" onclick="toggleFab()">＋ Add</button>
   </div>
 </div>
 
-<!-- MENU PANEL -->
+<!-- MENU -->
 <div id="menu-overlay" onclick="closeMenu()"></div>
 <div id="menu-panel">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
@@ -231,199 +241,222 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.5);}
     <button onclick="closeMenu()" style="background:#1E293B;border:none;color:#94A3B8;border-radius:6px;width:28px;height:28px;cursor:pointer;">✕</button>
   </div>
   <div class="mp-title">File</div>
-  <div class="mi" onclick="saveFile();closeMenu()"><span class="mi-icon">💾</span>Save</div>
-  <div class="mi" onclick="saveAsFile();closeMenu()"><span class="mi-icon">📄</span>Save As</div>
-  <div class="mi" onclick="closeMenu();openFile()"><span class="mi-icon">📂</span>Open Another</div>
-  <div class="mi" onclick="closeMenu();newFile()"><span class="mi-icon">➕</span>New Project</div>
+  <div class="mi" onclick="saveFile();closeMenu()"><span>💾</span>Save</div>
+  <div class="mi" onclick="saveAsFile();closeMenu()"><span>📄</span>Save As</div>
+  <div class="mi" onclick="closeMenu();openFile()"><span>📂</span>Open Another</div>
+  <div class="mi" onclick="closeMenu();newFile()"><span>➕</span>New Project</div>
   <div class="mp-title">Export</div>
-  <div class="mi" onclick="exportCSV();closeMenu()"><span class="mi-icon">📊</span>Export CSV</div>
+  <div class="mi" onclick="exportCSV();closeMenu()"><span>📊</span>Export CSV</div>
   <div class="mp-title">Project</div>
-  <div class="mi" style="color:#EF4444;" onclick="closeAndGoHome();closeMenu()"><span class="mi-icon">🏠</span>Home Screen</div>
+  <div class="mi" style="color:#EF4444;" onclick="closeAndGoHome();closeMenu()"><span>🏠</span>Home Screen</div>
 </div>
 
-<!-- ══ MODAL: New/Edit Vendor ══ -->
-<div class="overlay" id="vendor-overlay" onclick="closeVendorModal(event)">
+<!-- MODAL: New/Edit Vendor -->
+<div class="overlay" id="vendor-overlay" onclick="closeVModal(event)">
   <div class="modal" onclick="event.stopPropagation()">
-    <div class="mhdr">
-      <span class="mtitle" id="vendor-modal-title">🏪 New Vendor</span>
-      <button class="mcls" onclick="closeVendorModal()">✕</button>
-    </div>
+    <div class="mhdr"><span class="mtitle" id="v-mtitle">🏪 New Vendor</span><button class="mcls" onclick="closeVModal()">✕</button></div>
     <input type="hidden" id="v-id"/>
     <div class="fg"><label class="fl">Vendor / Party Name *</label>
       <input class="fi" id="v-name" placeholder="e.g. Ram Suppliers, Suresh Contractor"/>
     </div>
     <div class="fr">
-      <div class="fg"><label class="fl">Category *</label>
-        <select class="fi" id="v-cat"></select>
-      </div>
-      <div class="fg"><label class="fl">Sub-Tag</label>
-        <select class="fi" id="v-sub"></select>
-      </div>
+      <div class="fg"><label class="fl">Category *</label><select class="fi" id="v-cat" onchange="syncVSub()"></select></div>
+      <div class="fg"><label class="fl">Sub-Tag</label><select class="fi" id="v-sub"></select></div>
     </div>
-    <div class="fg"><label class="fl">Phone (optional)</label>
-      <input class="fi" id="v-phone" placeholder="Contact number" inputmode="tel"/>
-    </div>
-    <div class="fg"><label class="fl">Notes</label>
-      <input class="fi" id="v-notes" placeholder="Any general note about this vendor..."/>
+    <div class="fr">
+      <div class="fg"><label class="fl">Phone</label><input class="fi" id="v-phone" placeholder="Contact no." inputmode="tel"/></div>
+      <div class="fg"><label class="fl">Notes</label><input class="fi" id="v-notes" placeholder="Any note..."/></div>
     </div>
     <div class="brow">
-      <button class="btn-s" onclick="closeVendorModal()">Cancel</button>
+      <button class="btn-s" onclick="closeVModal()">Cancel</button>
       <button class="btn-p" onclick="saveVendor()">Save Vendor</button>
     </div>
   </div>
 </div>
 
-<!-- ══ MODAL: Add/Edit Purchase ══ -->
-<div class="overlay" id="purchase-overlay" onclick="closePurchaseModal(event)">
+<!-- MODAL: Add/Edit Purchase (with inline payment) -->
+<div class="overlay" id="pur-overlay" onclick="closePModal(event)">
   <div class="modal" onclick="event.stopPropagation()">
-    <div class="mhdr">
-      <span class="mtitle" id="purchase-modal-title">🛒 Add Purchase</span>
-      <button class="mcls" onclick="closePurchaseModal()">✕</button>
-    </div>
+    <div class="mhdr"><span class="mtitle" id="pur-mtitle">🛒 Add Purchase</span><button class="mcls" onclick="closePModal()">✕</button></div>
     <input type="hidden" id="pur-vid"/>
-    <input type="hidden" id="pur-id"/>
-    <div class="info-box" id="pur-vendor-info"></div>
+    <input type="hidden" id="pur-pid"/>
+    <div class="info-box" id="pur-vinfo"></div>
     <div class="fr">
-      <div class="fg"><label class="fl">Date *</label>
-        <input type="date" class="fi" id="pur-date"/>
-      </div>
-      <div class="fg"><label class="fl">Amount (₹) *</label>
-        <input type="number" inputmode="numeric" class="fi" id="pur-amount" placeholder="0"/>
-      </div>
+      <div class="fg"><label class="fl">Date *</label><input type="date" class="fi" id="pur-date"/></div>
+      <div class="fg"><label class="fl">Amount (₹) *</label><input type="number" inputmode="numeric" class="fi" id="pur-amt" placeholder="0" oninput="onPurAmtChange()"/></div>
     </div>
     <div class="fg"><label class="fl">Description *</label>
       <input class="fi" id="pur-desc" placeholder="e.g. 10 bags cement OPC 53 grade"/>
     </div>
     <div class="fr">
-      <div class="fg"><label class="fl">Quantity</label>
-        <input class="fi" id="pur-qty" placeholder="e.g. 10 bags"/>
-      </div>
-      <div class="fg"><label class="fl">Unit Price</label>
-        <input type="number" inputmode="numeric" class="fi" id="pur-unitprice" placeholder="per unit"/>
+      <div class="fg"><label class="fl">Quantity</label><input class="fi" id="pur-qty" placeholder="e.g. 10 bags"/></div>
+      <div class="fg"><label class="fl">Unit Price (₹)</label><input type="number" inputmode="numeric" class="fi" id="pur-up" placeholder="per unit"/></div>
+    </div>
+    <div class="fg"><label class="fl">Notes</label><input class="fi" id="pur-notes" placeholder="Quality, delivery info..."/></div>
+
+    <!-- PAYMENT INLINE -->
+    <div class="divider"></div>
+    <div class="fg">
+      <label class="fl">💳 Payment for this purchase?</label>
+      <div class="pay-toggle">
+        <span class="pt active-no" id="pt-no"  onclick="setPT('no')">❌ Not Paid</span>
+        <span class="pt" id="pt-partial"        onclick="setPT('partial')">⚡ Partial</span>
+        <span class="pt" id="pt-full"           onclick="setPT('full')">✅ Fully Paid</span>
       </div>
     </div>
-    <div class="fg"><label class="fl">Notes</label>
-      <input class="fi" id="pur-notes" placeholder="e.g. Quality good, delivered on time..."/>
+    <div class="pay-inline" id="pay-inline">
+      <div class="fr">
+        <div class="fg"><label class="fl">Paid Amount (₹)</label><input type="number" inputmode="numeric" class="fi" id="pi-amt" placeholder="0"/></div>
+        <div class="fg"><label class="fl">Payment Mode</label>
+          <select class="fi" id="pi-mode"><option>Cash</option><option>Bank Transfer</option><option>UPI</option><option>Cheque</option><option>Other</option></select>
+        </div>
+      </div>
+      <div class="fr">
+        <div class="fg"><label class="fl">Received By</label><input class="fi" id="pi-recv" placeholder="Who received?"/></div>
+        <div class="fg"><label class="fl">Reference No.</label><input class="fi" id="pi-ref" placeholder="UPI ref, cheque no..."/></div>
+      </div>
+      <div class="fg"><label class="fl">Payment Note</label><input class="fi" id="pi-note" placeholder="e.g. Cash paid at site..."/></div>
     </div>
     <div class="brow">
-      <button class="btn-s" onclick="closePurchaseModal()">Cancel</button>
-      <button class="btn-p" onclick="savePurchase()">Save Purchase</button>
+      <button class="btn-s" onclick="closePModal()">Cancel</button>
+      <button class="btn-p" onclick="savePurchase()">Save</button>
     </div>
   </div>
 </div>
 
-<!-- ══ MODAL: Add Payment ══ -->
-<div class="overlay" id="payment-overlay" onclick="closePaymentModal(event)">
+<!-- MODAL: Add Payment -->
+<div class="overlay" id="pay-overlay" onclick="closePayModal(event)">
   <div class="modal" onclick="event.stopPropagation()">
-    <div class="mhdr">
-      <span class="mtitle">💳 Add Payment</span>
-      <button class="mcls" onclick="closePaymentModal()">✕</button>
-    </div>
+    <div class="mhdr"><span class="mtitle">💳 Add Payment</span><button class="mcls" onclick="closePayModal()">✕</button></div>
     <input type="hidden" id="pay-vid"/>
-    <div class="info-box" id="pay-vendor-info"></div>
+    <div class="info-box" id="pay-vinfo"></div>
     <div class="fr">
-      <div class="fg"><label class="fl">Date *</label>
-        <input type="date" class="fi" id="pay-date"/>
-      </div>
-      <div class="fg"><label class="fl">Amount (₹) *</label>
-        <input type="number" inputmode="numeric" class="fi" id="pay-amount" placeholder="0" oninput="updatePayProg()"/>
-      </div>
+      <div class="fg"><label class="fl">Date *</label><input type="date" class="fi" id="pay-date"/></div>
+      <div class="fg"><label class="fl">Amount (₹) *</label><input type="number" inputmode="numeric" class="fi" id="pay-amt" placeholder="0" oninput="updatePayProg()"/></div>
     </div>
     <div class="fr">
       <div class="fg"><label class="fl">Payment Mode *</label>
-        <select class="fi" id="pay-mode">
-          <option>Cash</option><option>Bank Transfer</option><option>UPI</option><option>Cheque</option><option>Other</option>
-        </select>
+        <select class="fi" id="pay-mode"><option>Cash</option><option>Bank Transfer</option><option>UPI</option><option>Cheque</option><option>Other</option></select>
       </div>
-      <div class="fg"><label class="fl">Received By</label>
-        <input class="fi" id="pay-receiver" placeholder="Who received cash?"/>
-      </div>
+      <div class="fg"><label class="fl">Received By</label><input class="fi" id="pay-recv" placeholder="Who received?"/></div>
     </div>
-    <div class="fg"><label class="fl">Reference / Receipt No.</label>
-      <input class="fi" id="pay-ref" placeholder="Cheque no, UPI ref, receipt no..."/>
-    </div>
-    <div class="fg"><label class="fl">Notes</label>
-      <input class="fi" id="pay-note" placeholder="e.g. Paid cash at site, witnessed by Ramesh..."/>
+    <div class="fr">
+      <div class="fg"><label class="fl">Reference No.</label><input class="fi" id="pay-ref" placeholder="UPI ref, cheque no..."/></div>
+      <div class="fg"><label class="fl">Notes</label><input class="fi" id="pay-note" placeholder="e.g. Paid at site..."/></div>
     </div>
     <div id="pay-prog-wrap" style="background:#080F1E;border-radius:8px;padding:10px 12px;margin-bottom:4px;display:none;">
       <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;">
         <span style="color:#94A3B8;">After this payment</span>
         <span id="pay-prog-text" style="color:#F59E0B;font-weight:700;"></span>
       </div>
-      <div style="background:#1E293B;border-radius:4px;height:6px;">
-        <div id="pay-prog-fill" style="height:6px;border-radius:4px;background:linear-gradient(90deg,#F59E0B,#10B981);transition:width 0.3s;"></div>
-      </div>
+      <div style="background:#1E293B;border-radius:4px;height:6px;"><div id="pay-prog-fill" style="height:6px;border-radius:4px;background:linear-gradient(90deg,#F59E0B,#10B981);transition:width 0.3s;"></div></div>
     </div>
     <div class="brow">
-      <button class="btn-s" onclick="closePaymentModal()">Cancel</button>
+      <button class="btn-s" onclick="closePayModal()">Cancel</button>
       <button class="btn-p" onclick="savePayment()">Record Payment</button>
     </div>
   </div>
 </div>
 
-<!-- ══ MODAL: New Project Name ══ -->
-<div class="overlay" id="newproj-overlay">
+<!-- MODAL: Misc / Small Expense -->
+<div class="overlay" id="misc-overlay" onclick="closeMiscModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="mhdr"><span class="mtitle">📦 Misc / Small Expense</span><button class="mcls" onclick="closeMiscModal()">✕</button></div>
+    <div style="background:#F9741618;border:1px solid #F9741633;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:#F97316;">
+      For small one-off payments without a vendor — chai, tools, petty cash, etc.
+    </div>
+    <div class="fr">
+      <div class="fg"><label class="fl">Date *</label><input type="date" class="fi" id="misc-date"/></div>
+      <div class="fg"><label class="fl">Amount (₹) *</label><input type="number" inputmode="numeric" class="fi" id="misc-amt" placeholder="0"/></div>
+    </div>
+    <div class="fg"><label class="fl">Description *</label><input class="fi" id="misc-desc" placeholder="e.g. Chai for workers, petty tools..."/></div>
+    <div class="fr">
+      <div class="fg"><label class="fl">Category</label><select class="fi" id="misc-cat"></select></div>
+      <div class="fg"><label class="fl">Payment Mode</label>
+        <select class="fi" id="misc-mode"><option>Cash</option><option>Bank Transfer</option><option>UPI</option><option>Cheque</option><option>Other</option></select>
+      </div>
+    </div>
+    <div class="fg"><label class="fl">Notes</label><input class="fi" id="misc-notes" placeholder="Any note..."/></div>
+    <div class="brow">
+      <button class="btn-s" onclick="closeMiscModal()">Cancel</button>
+      <button class="btn-p" onclick="saveMisc()">Add Expense</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: New Project -->
+<div class="overlay" id="np-overlay">
   <div class="modal" style="max-height:260px;" onclick="event.stopPropagation()">
     <div class="mhdr"><span class="mtitle">📄 New Project</span></div>
-    <div class="fg"><label class="fl">Project Name</label>
-      <input class="fi" id="proj-name-inp" placeholder="e.g. My House Phase 1" maxlength="60"/>
-    </div>
+    <div class="fg"><label class="fl">Project Name</label><input class="fi" id="np-name" placeholder="e.g. My House Phase 1" maxlength="60"/></div>
     <div style="color:#64748B;font-size:12px;margin-bottom:4px;">You'll choose where to save it next.</div>
     <div class="brow">
-      <button class="btn-s" onclick="cancelNewProj()">Cancel</button>
+      <button class="btn-s" onclick="document.getElementById('np-overlay').classList.remove('open')">Cancel</button>
       <button class="btn-p" onclick="confirmNewProj()">Create & Save</button>
     </div>
   </div>
 </div>
 
-<!-- ══ DELETE CONFIRM ══ -->
+<!-- DELETE CONFIRM -->
 <div class="overlay" id="del-overlay" onclick="cancelDel()">
   <div class="modal" style="max-height:240px;text-align:center;" onclick="event.stopPropagation()">
     <div style="font-size:36px;margin-bottom:10px;">🗑️</div>
-    <div style="color:#E2E8F0;font-size:16px;font-weight:700;margin-bottom:6px;">Delete?</div>
+    <div style="color:#E2E8F0;font-size:15px;font-weight:700;margin-bottom:6px;">Delete?</div>
     <div style="color:#64748B;font-size:13px;margin-bottom:20px;" id="del-msg">This cannot be undone.</div>
-    <div class="brow">
-      <button class="btn-s" onclick="cancelDel()">Cancel</button>
-      <button class="btn-d" onclick="confirmDel()">Delete</button>
-    </div>
+    <div class="brow"><button class="btn-s" onclick="cancelDel()">Cancel</button><button class="btn-d" onclick="confirmDel()">Delete</button></div>
   </div>
 </div>
 
 <div id="toast"></div>
-</div><!-- end app -->
+</div>
 
 <script>
-// ══ CATEGORIES ═══════════════════════════════════════════
+// ══ CONSTANTS ════════════════════════════════════════════
 const CATS={
   "Construction Material":{icon:"🧱",color:"#F59E0B",sub:["Cement","Sand","Bricks","Steel Rods","Aggregates","TMT Bars","Tiles","Glass","Plywood","Paint","Waterproofing","Other"]},
   "Labour Payment":{icon:"👷",color:"#10B981",sub:["Mason","Carpenter","Plumber","Electrician","Painter","Helper","Welder","Tile Layer","Other"]},
-  "Machine / Equipment":{icon:"🏗️",color:"#6366F1",sub:["Excavator","Concrete Mixer","Crane","Scaffolding","Vibrator","Generator","Water Pump","Other"]},
+  "Machine / Equipment":{icon:"🏗️",color:"#6366F1",sub:["Excavator","Concrete Mixer","Crane","Scaffolding","Generator","Water Pump","Other"]},
   "Engineer / Consultant":{icon:"📐",color:"#EC4899",sub:["Structural Engineer","Architect","Interior Designer","Site Supervisor","Other"]},
   "Government / Legal":{icon:"📋",color:"#8B5CF6",sub:["Building Permit","Approvals","NOC","Registration","Other"]},
   "Utilities & Site":{icon:"⚡",color:"#14B8A6",sub:["Electricity","Water Supply","Site Security","Waste Disposal","Other"]},
   "Miscellaneous":{icon:"📦",color:"#F97316",sub:["Tools","Safety Equipment","Site Photography","Stationery","Other"]}
 };
+const MISC_VID="__MISC__";
 
 // ══ STATE ════════════════════════════════════════════════
-let fileHandle=null, projectData=null, unsaved=false;
-let delTarget=null; // {type:'vendor'|'purchase'|'payment', vid, idx}
-let showAllPurchases={}; // vendorId -> bool
-let showAllPayments={}; // vendorId -> bool
+let fileHandle=null,projectData=null,unsaved=false;
+let delTarget=null;
+let showAllP={},showAllPay={};
+let purPayMode="no"; // for inline payment toggle
 let nextId=Date.now();
-
 const uid=()=>String(nextId++);
 const fmt=n=>"₹"+(n||0).toLocaleString("en-IN");
 const fmtS=n=>n>=100000?"₹"+(n/100000).toFixed(1)+"L":n>=1000?"₹"+(n/1000).toFixed(1)+"K":"₹"+Math.round(n);
 const sc=s=>({Paid:"#10B981","Partially Paid":"#F59E0B",Pending:"#EF4444"}[s]||"#888");
 
+// ══ KEY LOGIC: vendor totals ══════════════════════════════
+// Total expense = max(sum of purchases, sum of payments)
+// This means if only payments exist (labour, no purchase), they count
+// If purchases > payments, pending = purchases - payments
+// If payments > purchases, it means they over-paid or no purchases logged
+function vTotals(v){
+  const purTotal=(v.purchases||[]).reduce((s,p)=>s+p.amount,0);
+  const payTotal=(v.payments||[]).reduce((s,p)=>s+p.amount,0);
+  // For vendors with no purchases (pure labour/service), payments ARE the expense
+  const totalBill=Math.max(purTotal,payTotal);
+  const pending=Math.max(0,purTotal-payTotal); // only show pending if purchases > payments
+  const status=payTotal>=purTotal&&purTotal>0?"Paid":payTotal>0?"Partially Paid":"Pending";
+  return {purTotal,payTotal,totalBill,pending,status};
+}
+
 // ══ FILE SYSTEM ══════════════════════════════════════════
 const FS=!!window.showSaveFilePicker;
 const FOPTS={types:[{description:"BuildLedger",accept:{"application/json":[".buildledger",".json"]}}]};
-
-function getRecents(){try{return JSON.parse(localStorage.getItem("bl_rec")||"[]");}catch{return[];}}
-function addRecent(name){let r=getRecents().filter(x=>x.name!==name);r.unshift({name,at:new Date().toISOString()});localStorage.setItem("bl_rec",JSON.stringify(r.slice(0,5)));}
+function getRecents(){try{return JSON.parse(localStorage.getItem("bl_rec4")||"[]");}catch{return[];}}
+function addRecent(name){let r=getRecents().filter(x=>x.name!==name);r.unshift({name,at:new Date().toISOString()});localStorage.setItem("bl_rec4",JSON.stringify(r.slice(0,5)));}
 function renderRecents(){
-  const r=getRecents(); const sec=document.getElementById("recent-sect");
+  const r=getRecents();
+  const sec=document.getElementById("recent-sect");
   if(!r.length){sec.style.display="none";return;}
   sec.style.display="block";
   document.getElementById("recent-list").innerHTML=r.map(x=>`
@@ -433,22 +466,37 @@ function renderRecents(){
       <div style="color:#64748B;font-size:11px;">${new Date(x.at).toLocaleDateString()}</div></div>
     </div>`).join("");
 }
-
-function newFile(){document.getElementById("proj-name-inp").value="";document.getElementById("newproj-overlay").classList.add("open");setTimeout(()=>document.getElementById("proj-name-inp").focus(),120);}
-function cancelNewProj(){document.getElementById("newproj-overlay").classList.remove("open");}
+function newFile(){document.getElementById("np-name").value="";document.getElementById("np-overlay").classList.add("open");setTimeout(()=>document.getElementById("np-name").focus(),120);}
 async function confirmNewProj(){
-  const name=(document.getElementById("proj-name-inp").value||"").trim()||"Untitled";
-  document.getElementById("newproj-overlay").classList.remove("open");
+  const name=(document.getElementById("np-name").value||"").trim()||"Untitled";
+  document.getElementById("np-overlay").classList.remove("open");
   projectData={name,createdAt:new Date().toISOString(),lastSaved:null,vendors:[]};
-  fileHandle=null; markUnsaved();
-  await saveFile(); loadMainApp();
+  fileHandle=null;markUnsaved();await saveFile();loadMainApp();
 }
 async function openFile(){
   try{
-    if(FS){const[h]=await window.showOpenFilePicker(FOPTS);fileHandle=h;const f=await h.getFile();const t=await f.text();projectData=JSON.parse(t);if(!projectData.vendors)projectData.vendors=[];}
-    else{await new Promise(res=>{const i=document.createElement("input");i.type="file";i.accept=".buildledger,.json";i.onchange=async e=>{const f=e.target.files[0];if(!f)return;const t=await f.text();projectData=JSON.parse(t);if(!projectData.vendors)projectData.vendors=[];res();};i.click();});}
+    if(FS){const[h]=await window.showOpenFilePicker(FOPTS);fileHandle=h;const f=await h.getFile();projectData=JSON.parse(await f.text());}
+    else{await new Promise(res=>{const i=document.createElement("input");i.type="file";i.accept=".buildledger,.json";i.onchange=async e=>{const f=e.target.files[0];if(!f)return;projectData=JSON.parse(await f.text());res();};i.click();});}
+    if(!projectData.vendors)projectData.vendors=[];
+    // migrate old expenses format if present
+    migrateOldData();
     addRecent(projectData.name||"Untitled");markSaved();loadMainApp();
   }catch(e){if(e.name!=="AbortError")toast("Could not open: "+e.message);}
+}
+// backward compat: if old data had 'expenses' array, convert to vendor-centric
+function migrateOldData(){
+  if(projectData.expenses&&projectData.expenses.length>0&&(!projectData.vendors||projectData.vendors.length===0)){
+    const vMap={};
+    projectData.expenses.forEach(e=>{
+      const key=e.vendor||"Misc";
+      if(!vMap[key])vMap[key]={id:uid(),name:key,category:e.category||"Miscellaneous",subTag:e.subTag||"Other",phone:"",notes:"",purchases:[],payments:[]};
+      vMap[key].purchases.push({id:uid(),date:e.date,desc:e.description||"",amount:e.totalAmount||0,qty:"",unitPrice:0,notes:e.notes||""});
+      if(e.paidAmount>0)vMap[key].payments.push({id:uid(),date:e.date,amount:e.paidAmount,mode:e.paymentMode||"Cash",receiver:"",ref:"",note:"",addedAt:e.date});
+      if(e.payments&&e.payments.length>0)e.payments.forEach(p=>vMap[key].payments.push({...p,id:p.id||uid()}));
+    });
+    projectData.vendors=Object.values(vMap);
+    delete projectData.expenses;
+  }
 }
 async function saveFile(){
   if(!projectData)return false;
@@ -458,28 +506,20 @@ async function saveFile(){
     if(FS){
       if(!fileHandle)fileHandle=await window.showSaveFilePicker({...FOPTS,suggestedName:(projectData.name||"project").replace(/[^a-z0-9]/gi,"_")+".buildledger"});
       const w=await fileHandle.createWritable();await w.write(json);await w.close();
-    } else {
+    }else{
       const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([json],{type:"application/json"}));
       a.download=(projectData.name||"project").replace(/[^a-z0-9]/gi,"_")+".buildledger";a.click();
     }
     markSaved();toast("💾 Saved!");addRecent(projectData.name||"Untitled");return true;
   }catch(e){if(e.name!=="AbortError")toast("Save failed: "+e.message);return false;}
 }
-async function saveAsFile(){
-  if(!FS){saveFile();return;}
-  try{fileHandle=await window.showSaveFilePicker({...FOPTS,suggestedName:(projectData.name||"project").replace(/[^a-z0-9]/gi,"_")+"_copy.buildledger"});await saveFile();}
-  catch(e){if(e.name!=="AbortError")toast("Save As failed.");}
-}
+async function saveAsFile(){if(!FS){saveFile();return;}try{fileHandle=await window.showSaveFilePicker({...FOPTS,suggestedName:(projectData.name||"project").replace(/[^a-z0-9]/gi,"_")+"_copy.buildledger"});await saveFile();}catch(e){if(e.name!=="AbortError")toast("Save As failed.");}}
 function exportCSV(){
   if(!projectData?.vendors?.length){toast("No data to export.");return;}
-  const rows=[["Vendor","Category","Sub-Tag","Purchase Date","Description","Qty","Amount","Payment Date","Payment Mode","Payment Amount","Ref","Notes"].join(",")];
+  const rows=[["Type","Vendor","Category","Sub-Tag","Date","Description","Qty","Amount","Pay Mode","Ref","Notes"].join(",")];
   projectData.vendors.forEach(v=>{
-    (v.purchases||[]).forEach(p=>{
-      rows.push([v.name,v.category,v.subTag,p.date,`"${(p.desc||"").replace(/"/g,'""')}"`,p.qty||"",p.amount,"","","","",""].join(","));
-    });
-    (v.payments||[]).forEach(p=>{
-      rows.push([v.name,v.category,v.subTag,"","","","",p.date,p.mode,p.amount,p.ref||"",`"${(p.note||"").replace(/"/g,'""')}"`].join(","));
-    });
+    (v.purchases||[]).forEach(p=>rows.push(["Purchase",`"${v.name}"`,v.category,v.subTag,p.date,`"${(p.desc||"").replace(/"/g,'""')}"`,p.qty||"",p.amount,"","",""].join(",")));
+    (v.payments||[]).forEach(p=>rows.push(["Payment",`"${v.name}"`,v.category,v.subTag,p.date,"","",p.amount,p.mode,p.ref||"",`"${(p.note||"").replace(/"/g,'""')}"`].join(",")));
   });
   const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([rows.join("\n")],{type:"text/csv"}));
   a.download=(projectData.name||"expenses")+".csv";a.click();toast("📊 CSV exported!");
@@ -491,61 +531,61 @@ function loadMainApp(){
   document.getElementById("file-screen").style.display="none";
   document.getElementById("main-app").style.display="block";
   document.getElementById("proj-lbl").textContent=projectData.name||"Untitled";
-  populateCatDropdown("v-cat","v-sub");
+  fillCatDropdown("v-cat");fillCatDropdown("misc-cat");syncVSub();
   showTab("dashboard");
 }
 
-// ══ MENU ════════════════════════════════════════════════
+// ══ FAB ══════════════════════════════════════════════════
+let fabOpen=false;
+function toggleFab(){
+  fabOpen=!fabOpen;
+  document.getElementById("fab-vendor").classList.toggle("show",fabOpen);
+  document.getElementById("fab-misc").classList.toggle("show",fabOpen);
+  document.getElementById("fab-main-btn").textContent=fabOpen?"✕ Close":"＋ Add";
+}
+function closeFab(){fabOpen=false;document.getElementById("fab-vendor").classList.remove("show");document.getElementById("fab-misc").classList.remove("show");document.getElementById("fab-main-btn").textContent="＋ Add";}
+document.addEventListener("click",e=>{if(fabOpen&&!document.getElementById("fab").contains(e.target))closeFab();});
+
+// ══ MENU ═════════════════════════════════════════════════
 function openMenu(){document.getElementById("menu-overlay").classList.add("open");document.getElementById("menu-panel").style.display="flex";}
 function closeMenu(){document.getElementById("menu-overlay").classList.remove("open");document.getElementById("menu-panel").style.display="none";}
 
-// ══ TAB ═════════════════════════════════════════════════
+// ══ TAB ══════════════════════════════════════════════════
 function showTab(name,btn){
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
   document.querySelectorAll(".nb").forEach(b=>b.classList.remove("active"));
   document.getElementById("tab-"+name).classList.add("active");
   if(btn)btn.classList.add("active");
   else document.querySelectorAll(".nb")[["dashboard","vendors","analysis"].indexOf(name)]?.classList.add("active");
-  ({dashboard:renderDashboard,vendors:renderVendorsTab,analysis:renderAnalysis})[name]?.();
+  ({dashboard:renderDashboard,vendors:renderVendors,analysis:renderAnalysis})[name]?.();
 }
 function refreshTab(){
-  const a=document.querySelector(".tab.active");
-  if(!a)return;
-  ({dashboard:renderDashboard,vendors:renderVendorsTab,analysis:renderAnalysis})[a.id.replace("tab-","")]?.();
-}
-
-// ══ VENDOR TOTALS HELPER ═════════════════════════════════
-function vTotals(v){
-  const totalBill=(v.purchases||[]).reduce((s,p)=>s+p.amount,0);
-  const totalPaid=(v.payments||[]).reduce((s,p)=>s+p.amount,0);
-  const pending=Math.max(0,totalBill-totalPaid);
-  const status=totalPaid>=totalBill&&totalBill>0?"Paid":totalPaid>0?"Partially Paid":"Pending";
-  return {totalBill,totalPaid,pending,status};
+  const a=document.querySelector(".tab.active");if(!a)return;
+  ({dashboard:renderDashboard,vendors:renderVendors,analysis:renderAnalysis})[a.id.replace("tab-","")]?.();
 }
 
 // ══ DASHBOARD ════════════════════════════════════════════
 function renderDashboard(){
   const vs=projectData.vendors||[];
-  const allTotals=vs.map(vTotals);
-  const grandBill=allTotals.reduce((s,t)=>s+t.totalBill,0);
-  const grandPaid=allTotals.reduce((s,t)=>s+t.totalPaid,0);
-  const grandPend=allTotals.reduce((s,t)=>s+t.pending,0);
+  const totals=vs.map(vTotals);
+  const grandBill=totals.reduce((s,t)=>s+t.totalBill,0);
+  const grandPaid=totals.reduce((s,t)=>s+t.payTotal,0);
+  const grandPend=totals.reduce((s,t)=>s+t.pending,0);
   const pct=grandBill?Math.round(grandPaid/grandBill*100):0;
-
-  const pendVendors=vs.map((v,i)=>({v,t:allTotals[i]})).filter(x=>x.t.pending>0).sort((a,b)=>b.t.pending-a.t.pending).slice(0,5);
-  const catMap={};vs.forEach((v,i)=>{catMap[v.category]=(catMap[v.category]||0)+allTotals[i].totalBill;});
+  const pVendors=vs.map((v,i)=>({v,t:totals[i]})).filter(x=>x.t.pending>0).sort((a,b)=>b.t.pending-a.t.pending).slice(0,5);
+  const catMap={};vs.forEach((v,i)=>{catMap[v.category]=(catMap[v.category]||0)+totals[i].totalBill;});
   const catArr=Object.entries(catMap).sort((a,b)=>b[1]-a[1]);
   const mMap={};
-  vs.forEach(v=>(v.purchases||[]).forEach(p=>{const m=p.date?.substring(0,7);if(!m)return;if(!mMap[m])mMap[m]={m,total:0};mMap[m].total+=p.amount;}));
-  vs.forEach(v=>(v.payments||[]).forEach(p=>{const m=p.date?.substring(0,7);if(!m)return;if(!mMap[m])mMap[m]={m,total:mMap[m]?.total||0,paid:0};mMap[m].paid=(mMap[m].paid||0)+p.amount;}));
+  vs.forEach(v=>(v.purchases||[]).forEach(p=>{const m=p.date?.substring(0,7);if(!m)return;if(!mMap[m])mMap[m]={m,bill:0,paid:0};mMap[m].bill+=p.amount;}));
+  vs.forEach(v=>(v.payments||[]).forEach(p=>{const m=p.date?.substring(0,7);if(!m)return;if(!mMap[m])mMap[m]={m,bill:mMap[m]?.bill||0,paid:0};mMap[m].paid+=p.amount;}));
   const months=Object.values(mMap).sort((a,b)=>a.m.localeCompare(b.m));
 
   document.getElementById("tab-dashboard").innerHTML=`
   <div class="kg">
-    ${kc("Total Bills",fmtS(grandBill),vs.length+" vendors","#F59E0B","💰")}
-    ${kc("Total Paid",fmtS(grandPaid),pct+"% complete","#10B981","✅")}
-    ${kc("Pending",fmtS(grandPend),"outstanding","#EF4444","⏳")}
-    ${kc("Progress",pct+"%","overall","#6366F1","📊",grandPaid/grandBill)}
+    ${kCard("Total Expense",fmtS(grandBill),vs.length+" vendors","#F59E0B","💰")}
+    ${kCard("Total Paid",fmtS(grandPaid),pct+"% complete","#10B981","✅")}
+    ${kCard("Pending",fmtS(grandPend),"outstanding","#EF4444","⏳")}
+    ${kCard("Progress",pct+"%","overall","#6366F1","📊",grandPaid/grandBill)}
   </div>
   <div class="card">
     <div class="card-title">By category</div>
@@ -553,35 +593,38 @@ function renderDashboard(){
     <div id="pie-leg" style="display:flex;flex-direction:column;gap:4px;margin-top:10px;"></div>
   </div>
   <div class="card">
-    <div class="card-title">Monthly purchases</div>
+    <div class="card-title">Monthly</div>
     <canvas id="bar-c" height="130" style="width:100%;display:block;"></canvas>
+    <div style="display:flex;gap:12px;margin-top:6px;justify-content:center;">
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#94A3B8;"><span style="width:10px;height:4px;background:#F59E0B;border-radius:2px;display:inline-block;"></span>Purchased</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#94A3B8;"><span style="width:10px;height:4px;background:#10B981;border-radius:2px;display:inline-block;"></span>Paid</div>
+    </div>
   </div>
-  ${pendVendors.length?`<div class="card">
+  ${pVendors.length?`<div class="card">
     <div class="card-title">⚠️ Pending payments</div>
-    ${pendVendors.map(({v,t})=>`
-      <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #0F172A;">
+    ${pVendors.map(({v,t})=>`
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #0F172A;">
         <div style="flex:1;min-width:0;">
-          <div style="color:#E2E8F0;font-size:13px;font-weight:600;">${v.name}</div>
+          <div style="color:#E2E8F0;font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${v.name}</div>
           <div style="color:#64748B;font-size:11px;">${CATS[v.category]?.icon||""} ${v.category}</div>
         </div>
-        <div style="text-align:right;">
+        <div style="text-align:right;min-width:70px;">
           <div style="color:#EF4444;font-weight:700;font-size:13px;">${fmt(t.pending)}</div>
-          <div style="color:#64748B;font-size:10px;">of ${fmt(t.totalBill)}</div>
+          <div style="color:#64748B;font-size:10px;">of ${fmt(t.purTotal)}</div>
         </div>
-        <button onclick="openPaymentModal('${v.id}')" style="background:#10B98122;color:#10B981;border:none;border-radius:7px;padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer;flex-shrink:0;">Pay</button>
+        <button onclick="openPaymentModal('${v.id}')" style="background:#10B98122;color:#10B981;border:1px solid #10B98144;border-radius:7px;padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer;flex-shrink:0;">💳 Pay</button>
       </div>`).join("")}
   </div>`:""}
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-      <div class="card-title" style="margin:0;">🏪 All Vendors</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+      <div class="card-title" style="margin:0;">Recent Vendors</div>
       <button onclick="showTab('vendors')" style="background:none;border:none;color:#F59E0B;font-size:12px;font-weight:600;cursor:pointer;">View all →</button>
     </div>
-    ${vs.length===0?'<div class="empty">No vendors yet. Tap + Vendor to add one.</div>':vs.slice(0,3).map(v=>vendorCardMini(v)).join("")}
+    ${vs.length===0?'<div class="empty">No vendors yet. Tap <b style="color:#F59E0B;">＋ Add</b> button below.</div>':vs.slice(0,4).map(v=>miniVendorRow(v)).join("")}
   </div>`;
   requestAnimationFrame(()=>{drawPie("pie-c",catArr,"pie-leg");drawBars("bar-c",months);});
 }
-
-function kc(label,val,sub,accent,icon,prog){
+function kCard(label,val,sub,accent,icon,prog){
   return `<div class="kc" style="border-top:3px solid ${accent};">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;">
       <div><div class="kl">${label}</div><div class="kv">${val}</div><div class="ks">${sub}</div></div>
@@ -590,167 +633,155 @@ function kc(label,val,sub,accent,icon,prog){
     ${prog!==undefined?`<div class="kb"><div class="kbf" style="width:${Math.min(100,((prog||0)*100).toFixed(0))}%;background:linear-gradient(90deg,${accent},#10B981);"></div></div>`:""}
   </div>`;
 }
-
-function vendorCardMini(v){
+function miniVendorRow(v){
   const t=vTotals(v);const cat=CATS[v.category]||{icon:"📦",color:"#888"};
-  const pct=t.totalBill?Math.min(100,(t.totalPaid/t.totalBill*100)):0;
-  return `<div style="padding:10px 0;border-bottom:1px solid #0F172A;display:flex;align-items:center;gap:10px;">
-    <div style="width:32px;height:32px;border-radius:50%;background:${cat.color}22;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:${cat.color};flex-shrink:0;">${v.name[0]}</div>
+  const pct=t.totalBill?Math.min(100,(t.payTotal/t.totalBill*100)):0;
+  return `<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #0F172A;">
+    <div style="width:30px;height:30px;border-radius:50%;background:${cat.color}22;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:${cat.color};flex-shrink:0;">${v.name[0]}</div>
     <div style="flex:1;min-width:0;">
       <div style="color:#E2E8F0;font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${v.name}</div>
-      <div style="background:#1E293B;border-radius:3px;height:4px;margin-top:5px;"><div style="height:4px;border-radius:3px;background:${cat.color};width:${pct}%;"></div></div>
+      <div style="background:#1E293B;border-radius:3px;height:3px;margin-top:5px;"><div style="height:3px;border-radius:3px;background:${cat.color};width:${pct}%;"></div></div>
     </div>
     <div style="text-align:right;flex-shrink:0;">
-      <div style="color:#E2E8F0;font-size:13px;font-weight:700;">${fmtS(t.totalBill)}</div>
-      <div style="color:${t.pending>0?"#EF4444":"#10B981"};font-size:11px;">${t.pending>0?fmtS(t.pending)+" due":"✓ Paid"}</div>
+      <div style="color:#E2E8F0;font-size:12px;font-weight:700;">${fmtS(t.totalBill)}</div>
+      <div style="font-size:11px;color:${t.pending>0?"#EF4444":"#10B981"};">${t.pending>0?fmtS(t.pending)+" due":"✓ Paid"}</div>
     </div>
   </div>`;
 }
 
 // ══ VENDORS TAB ══════════════════════════════════════════
-function renderVendorsTab(){
+function renderVendors(){
   const vs=projectData.vendors||[];
-  const search=(document.getElementById("v-search")?.value||"").toLowerCase();
-  const filtered=search?vs.filter(v=>v.name.toLowerCase().includes(search)||v.category.toLowerCase().includes(search)||v.subTag.toLowerCase().includes(search)):vs;
-
+  const sv=document.getElementById("v-search-tab")?.value?.toLowerCase()||"";
+  const filtered=sv?vs.filter(v=>v.name.toLowerCase().includes(sv)||v.category.toLowerCase().includes(sv)):vs;
   document.getElementById("tab-vendors").innerHTML=`
   <div style="display:flex;gap:8px;margin-bottom:12px;">
-    <input class="fi" id="v-search" placeholder="🔍 Search vendors..." value="${search}" oninput="renderVendorsTab()" style="flex:1;"/>
+    <input class="fi" id="v-search-tab" placeholder="🔍 Search vendors..." value="${sv}" oninput="renderVendors()" style="flex:1;"/>
   </div>
   <div style="color:#64748B;font-size:12px;margin-bottom:10px;">${filtered.length} vendor(s)</div>
-  ${filtered.length===0?'<div class="empty">No vendors yet. Tap <b style="color:#F59E0B;">+ Vendor</b> in the top right.</div>':filtered.map(v=>vendorCard(v)).join("")}`;
+  ${filtered.length===0?'<div class="empty">No vendors yet. Tap <b style="color:#F59E0B;">＋ Add</b> button.</div>':filtered.map(vendorCard).join("")}`;
 }
 
-// ══ THE BIG VENDOR CARD ══════════════════════════════════
+// ══ VENDOR CARD ══════════════════════════════════════════
 function vendorCard(v){
   const t=vTotals(v);
   const cat=CATS[v.category]||{icon:"📦",color:"#888"};
-  const pct=t.totalBill?Math.min(100,(t.totalPaid/t.totalBill*100)):0;
+  const pct=t.totalBill?Math.min(100,(t.payTotal/t.totalBill*100)):0;
   const purchases=v.purchases||[];
   const payments=v.payments||[];
-  const SHOW_MAX=3;
-  const showAllP=showAllPurchases[v.id];
-  const showAllPay=showAllPayments[v.id];
+  const SHOW=3;
+  const sap=showAllP[v.id],sapay=showAllPay[v.id];
+  const isMisc=v.id===MISC_VID;
 
-  const purchaseRows=(showAllP?purchases:purchases.slice(0,SHOW_MAX)).map((p,i)=>`
-    <div class="pr">
+  // — purchase rows
+  const purRows=(sap?purchases:purchases.slice(0,SHOW)).map(p=>{
+    const pbadge=p.payStatus==="full"
+      ?`<span class="pr-paid-badge" style="background:#10B98122;color:#10B981;">✅ Paid</span>`
+      :p.payStatus==="partial"
+      ?`<span class="pr-paid-badge" style="background:#F59E0B22;color:#F59E0B;">⚡ Partial</span>`
+      :`<span class="pr-paid-badge" style="background:#EF444422;color:#EF4444;">⏳ Unpaid</span>`;
+    return `<div class="pr">
       <div class="pr-left">
         <div class="pr-date">${p.date}</div>
         <div class="pr-desc">${p.desc}</div>
         <div class="pr-meta">
           ${p.qty?`<span class="pr-pill" style="background:${cat.color}18;color:${cat.color};">📦 ${p.qty}</span>`:""}
-          ${p.unitPrice?`<span class="pr-pill" style="background:#1E293B;color:#94A3B8;">@ ₹${p.unitPrice}/unit</span>`:""}
-          ${p.notes?`<span style="color:#475569;font-size:11px;">📝 ${p.notes}</span>`:""}
+          ${p.unitPrice?`<span class="pr-pill" style="background:#1E293B;color:#94A3B8;">@₹${p.unitPrice}/unit</span>`:""}
+          ${pbadge}
+          ${p.notes?`<span style="color:#475569;font-size:11px;width:100%;">📝 ${p.notes}</span>`:""}
         </div>
       </div>
-      <div style="display:flex;align-items:flex-start;gap:4px;">
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">
         <span class="pr-amt">${fmt(p.amount)}</span>
-        <button class="pr-del" onclick="editPurchase('${v.id}','${p.id}')" title="Edit">✏️</button>
-        <button class="pr-del" onclick="askDel('purchase','${v.id}','${p.id}')" title="Delete">✕</button>
+        <div class="row-btns">
+          <button class="rdb" onclick="openEditPurchase('${v.id}','${p.id}')" title="Edit">✏️</button>
+          <button class="rdb" onclick="askDel('purchase','${v.id}','${p.id}')" title="Delete" style="color:#EF444866;">✕</button>
+        </div>
       </div>
-    </div>`).join("");
+    </div>`;
+  }).join("");
 
-  const payRows=(showAllPay?payments:payments.slice(0,SHOW_MAX)).map((p,i)=>`
+  // — payment rows
+  const payRows=(sapay?payments:payments.slice(0,SHOW)).map(p=>`
     <div class="pymr">
       <div class="pymr-left">
-        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;">
           <span class="pymr-amount">${fmt(p.amount)}</span>
           <span class="pymr-mode">${p.mode}</span>
           <span class="pymr-date">${p.date}</span>
         </div>
         ${p.receiver?`<div class="pymr-detail">👤 <b style="color:#CBD5E1;">${p.receiver}</b></div>`:""}
-        ${p.ref?`<div class="pymr-detail">🔖 Ref: <b style="color:#CBD5E1;">${p.ref}</b></div>`:""}
+        ${p.ref?`<div class="pymr-detail">🔖 <b style="color:#CBD5E1;">${p.ref}</b></div>`:""}
         ${p.note?`<div class="pymr-detail">📝 ${p.note}</div>`:""}
       </div>
-      <button class="pymr-del" onclick="askDel('payment','${v.id}','${p.id}')" title="Delete">✕</button>
+      <button class="rdb" onclick="askDel('payment','${v.id}','${p.id}')" style="color:#EF444866;padding:4px 6px;">✕</button>
     </div>`).join("");
 
-  return `<div class="vc" id="vc-${v.id}">
+  // — payment-only notice
+  const payOnlyNotice=purchases.length===0&&payments.length>0
+    ?`<div style="background:#10B98110;border:1px solid #10B98130;border-radius:7px;padding:8px 10px;font-size:11px;color:#10B981;margin-bottom:8px;">
+        ℹ️ No purchases logged — payments counted as total expense.
+      </div>`:"";
 
-    <!-- HEADER -->
+  return `<div class="vc${isMisc?" misc-vendor":""}">
     <div class="vc-hdr">
-      <div class="vc-avatar" style="background:${cat.color}22;color:${cat.color};">${v.name[0].toUpperCase()}</div>
+      <div class="vc-avatar" style="background:${cat.color}22;color:${cat.color};">${isMisc?"📦":v.name[0].toUpperCase()}</div>
       <div style="flex:1;min-width:0;">
-        <div class="vc-name">${v.name}</div>
+        <div class="vc-name">${v.name}${isMisc?` <span style="font-size:10px;background:#F9741622;color:#F97316;padding:1px 6px;border-radius:10px;font-weight:600;">MISC</span>`:""}</div>
         <div class="vc-cat">${cat.icon} ${v.category} · ${v.subTag}${v.phone?" · 📞"+v.phone:""}</div>
-        ${v.notes?`<div style="color:#475569;font-size:11px;margin-top:2px;">📝 ${v.notes}</div>`:""}
+        ${v.notes?`<div style="color:#475569;font-size:11px;margin-top:1px;">📝 ${v.notes}</div>`:""}
       </div>
       <div class="vc-hdr-btns">
-        <button class="ib" onclick="openVendorModal('${v.id}')" title="Edit vendor">✏️</button>
-        <button class="ib" onclick="askDel('vendor','${v.id}')" title="Delete vendor" style="color:#EF444488;">🗑️</button>
+        ${!isMisc?`<button class="ib" onclick="openVendorModal('${v.id}')" title="Edit">✏️</button>`:""}
+        <button class="ib" onclick="askDel('vendor','${v.id}')" style="color:#EF444877;" title="Delete">🗑️</button>
       </div>
     </div>
 
-    <!-- TOTALS -->
     <div class="vc-totals">
-      <div class="vc-tot-item">
-        <div class="vc-tot-lbl">Total Bill</div>
-        <div class="vc-tot-val" style="color:#E2E8F0;">${fmt(t.totalBill)}</div>
-      </div>
-      <div class="vc-tot-item">
-        <div class="vc-tot-lbl">Paid</div>
-        <div class="vc-tot-val" style="color:#10B981;">${fmt(t.totalPaid)}</div>
-      </div>
-      <div class="vc-tot-item">
-        <div class="vc-tot-lbl">Pending</div>
-        <div class="vc-tot-val" style="color:${t.pending>0?"#EF4444":"#10B981"};">${fmt(t.pending)}</div>
-      </div>
-      <div class="vc-tot-item">
-        <div class="vc-tot-lbl">Status</div>
-        <div class="vc-tot-val"><span class="sbadge" style="background:${sc(t.status)}22;color:${sc(t.status)};font-size:11px;">${t.status}</span></div>
-      </div>
+      <div class="vt"><div class="vt-lbl">Purchased</div><div class="vt-val" style="color:#E2E8F0;">${fmt(t.purTotal)}</div></div>
+      <div class="vt"><div class="vt-lbl">Paid</div><div class="vt-val" style="color:#10B981;">${fmt(t.payTotal)}</div></div>
+      <div class="vt"><div class="vt-lbl">Pending</div><div class="vt-val" style="color:${t.pending>0?"#EF4444":"#10B981"};">${fmt(t.pending)}</div></div>
+      <div class="vt"><div class="vt-lbl">Status</div><div class="vt-val"><span class="sbadge" style="background:${sc(t.status)}22;color:${sc(t.status)};font-size:10px;">${t.status}</span></div></div>
     </div>
     <div class="vc-prog"><div class="vc-prog-fill" style="width:${pct}%;background:${cat.color};"></div></div>
 
-    <!-- PURCHASES SECTION -->
+    <!-- PURCHASES -->
     <div class="vc-sect">
-      <div class="vc-sect-hdr">
-        <span class="vc-sect-title">🛒 Purchases (${purchases.length})</span>
-        <button class="vc-add-btn vc-add-purchase" onclick="openPurchaseModal('${v.id}')">＋ Add Purchase</button>
+      <div class="vc-sh">
+        <span class="vc-st">🛒 Purchases (${purchases.length})</span>
+        ${!isMisc?`<button class="vadd vadd-p" onclick="openPurchaseModal('${v.id}')">＋ Add Purchase</button>`:
+                  `<button class="vadd vadd-misc" onclick="openMiscModal('${v.id}')">＋ Add Expense</button>`}
       </div>
-      ${purchases.length===0
-        ?`<div style="color:#475569;font-size:12px;padding:8px 0 10px;">No purchases yet. Tap <b style="color:#818CF8;">＋ Add Purchase</b> to record one.</div>`
-        :purchaseRows}
-      ${!showAllP&&purchases.length>SHOW_MAX
-        ?`<button class="show-more-btn" onclick="toggleShowAll('purchase','${v.id}')">▼ Show ${purchases.length-SHOW_MAX} more purchases</button>`:""}
-      ${showAllP&&purchases.length>SHOW_MAX
-        ?`<button class="show-more-btn" onclick="toggleShowAll('purchase','${v.id}')">▲ Show less</button>`:""}
+      ${payOnlyNotice}
+      ${purchases.length===0?`<div style="color:#475569;font-size:12px;padding:6px 0 10px;">${isMisc?"No misc expenses yet.":"No purchases yet. Tap ＋ Add Purchase."}</div>`:purRows}
+      ${!sap&&purchases.length>SHOW?`<button class="show-more-btn" onclick="toggleShow('p','${v.id}')">▼ Show ${purchases.length-SHOW} more purchases</button>`:""}
+      ${sap&&purchases.length>SHOW?`<button class="show-more-btn" onclick="toggleShow('p','${v.id}')">▲ Show less</button>`:""}
     </div>
 
-    <!-- PAYMENTS SECTION -->
+    <!-- PAYMENTS -->
     <div class="vc-sect" style="border-top:1px solid #1E293B;margin-top:4px;">
-      <div class="vc-sect-hdr">
-        <span class="vc-sect-title">💳 Payments (${payments.length})</span>
-        <button class="vc-add-btn vc-add-payment" onclick="openPaymentModal('${v.id}')">＋ Add Payment</button>
+      <div class="vc-sh">
+        <span class="vc-st">💳 Payments (${payments.length})</span>
+        <button class="vadd vadd-pay" onclick="openPaymentModal('${v.id}')">＋ Add Payment</button>
       </div>
-      ${payments.length===0
-        ?`<div style="color:#475569;font-size:12px;padding:8px 0 10px;">No payments recorded. Tap <b style="color:#10B981;">＋ Add Payment</b> to log one.</div>`
-        :payRows}
-      ${!showAllPay&&payments.length>SHOW_MAX
-        ?`<button class="show-more-btn" onclick="toggleShowAll('payment','${v.id}')">▼ Show ${payments.length-SHOW_MAX} more payments</button>`:""}
-      ${showAllPay&&payments.length>SHOW_MAX
-        ?`<button class="show-more-btn" onclick="toggleShowAll('payment','${v.id}')">▲ Show less</button>`:""}
-      <div style="padding-bottom:4px;"></div>
+      ${payments.length===0?`<div style="color:#475569;font-size:12px;padding:6px 0 10px;">No payments recorded. Tap ＋ Add Payment.</div>`:payRows}
+      ${!sapay&&payments.length>SHOW?`<button class="show-more-btn" onclick="toggleShow('pay','${v.id}')">▼ Show ${payments.length-SHOW} more payments</button>`:""}
+      ${sapay&&payments.length>SHOW?`<button class="show-more-btn" onclick="toggleShow('pay','${v.id}')">▲ Show less</button>`:""}
+      <div style="padding-bottom:6px;"></div>
     </div>
-
   </div>`;
 }
-
-function toggleShowAll(type,vid){
-  if(type==="purchase") showAllPurchases[vid]=!showAllPurchases[vid];
-  else showAllPayments[vid]=!showAllPayments[vid];
+function toggleShow(type,vid){
+  if(type==="p")showAllP[vid]=!showAllP[vid];
+  else showAllPay[vid]=!showAllPay[vid];
   refreshTab();
 }
 
-// ══ ANALYSIS TAB ═════════════════════════════════════════
+// ══ ANALYSIS ═════════════════════════════════════════════
 function renderAnalysis(){
   const vs=projectData.vendors||[];
   const catMap={};
-  vs.forEach(v=>{
-    const t=vTotals(v);
-    if(!catMap[v.category])catMap[v.category]={total:0,paid:0,count:0};
-    catMap[v.category].total+=t.totalBill;catMap[v.category].paid+=t.totalPaid;catMap[v.category].count++;
-  });
+  vs.forEach(v=>{const t=vTotals(v);if(!catMap[v.category])catMap[v.category]={total:0,paid:0,count:0};catMap[v.category].total+=t.totalBill;catMap[v.category].paid+=t.payTotal;catMap[v.category].count++;});
   const subMap={};vs.forEach(v=>{const t=vTotals(v);subMap[v.subTag]=(subMap[v.subTag]||0)+t.totalBill;});
   const subArr=Object.entries(subMap).sort((a,b)=>b[1]-a[1]).slice(0,7);
   const modeMap={};vs.forEach(v=>(v.payments||[]).forEach(p=>{modeMap[p.mode]=(modeMap[p.mode]||0)+p.amount;}));
@@ -759,16 +790,15 @@ function renderAnalysis(){
 
   document.getElementById("tab-analysis").innerHTML=`
   <div class="card">
-    <div class="card-title">Top categories</div>
+    <div class="card-title">Top items</div>
     <canvas id="hbar-c" height="${Math.max(60,subArr.length*30+10)}" style="width:100%;display:block;"></canvas>
   </div>
   <div class="card">
-    <div class="card-title">📊 Category summary</div>
+    <div class="card-title">Category summary</div>
     <div style="overflow-x:auto;">
       <table class="atab">
         <thead><tr>${["Category","Vendors","Billed","Paid","Pending","%"].map(h=>`<th>${h}</th>`).join("")}</tr></thead>
-        <tbody>
-        ${Object.entries(catMap).sort((a,b)=>b[1].total-a[1].total).map(([n,v])=>{
+        <tbody>${Object.entries(catMap).sort((a,b)=>b[1].total-a[1].total).map(([n,v])=>{
           const cat=CATS[n]||{icon:"📦",color:"#888"};
           const pend=v.total-v.paid,pct=v.total?Math.round(v.paid/v.total*100):0;
           return `<tr>
@@ -781,14 +811,13 @@ function renderAnalysis(){
               <div style="width:44px;background:#1E293B;border-radius:3px;height:5px;"><div style="width:${pct}%;background:${cat.color};height:5px;border-radius:3px;"></div></div>
               <span style="color:#94A3B8;font-size:10px;">${pct}%</span>
             </div></td>
-          </tr>`;
-        }).join("")}
+          </tr>`;}).join("")}
         </tbody>
       </table>
     </div>
   </div>
   <div class="card">
-    <div class="card-title">Payment mode breakdown</div>
+    <div class="card-title">Payment modes</div>
     ${Object.entries(modeMap).sort((a,b)=>b[1]-a[1]).map(([n,v],i)=>`
       <div style="margin-bottom:10px;">
         <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="color:#CBD5E1;font-size:13px;">${n}</span><span style="color:#F59E0B;font-weight:600;font-size:13px;">${fmt(v)}</span></div>
@@ -798,101 +827,140 @@ function renderAnalysis(){
   requestAnimationFrame(()=>drawHBar("hbar-c",subArr));
 }
 
-// ══ VENDOR MODAL ════════════════════════════════════════
-function populateCatDropdown(catId,subId){
-  const sel=document.getElementById(catId);if(!sel)return;
+// ══ VENDOR MODAL ═════════════════════════════════════════
+function fillCatDropdown(id){
+  const sel=document.getElementById(id);if(!sel)return;
   sel.innerHTML=Object.keys(CATS).map(c=>`<option value="${c}">${CATS[c].icon} ${c}</option>`).join("");
-  sel.onchange=()=>{
-    const sub=document.getElementById(subId);if(!sub)return;
-    sub.innerHTML=(CATS[sel.value]||{sub:["Other"]}).sub.map(s=>`<option>${s}</option>`).join("");
-  };
-  sel.onchange();
+}
+function syncVSub(){
+  const cat=document.getElementById("v-cat")?.value||Object.keys(CATS)[0];
+  const sub=document.getElementById("v-sub");if(!sub)return;
+  sub.innerHTML=(CATS[cat]||{sub:["Other"]}).sub.map(s=>`<option>${s}</option>`).join("");
 }
 function openVendorModal(vid=null){
   const v=vid?projectData.vendors.find(x=>x.id===vid):null;
-  document.getElementById("vendor-modal-title").textContent=v?"✏️ Edit Vendor":"🏪 New Vendor";
+  document.getElementById("v-mtitle").textContent=v?"✏️ Edit Vendor":"🏪 New Vendor";
   document.getElementById("v-id").value=vid||"";
-  populateCatDropdown("v-cat","v-sub");
+  fillCatDropdown("v-cat");
   if(v){
     document.getElementById("v-name").value=v.name;
-    document.getElementById("v-cat").value=v.category;
-    document.getElementById("v-cat").onchange();
+    document.getElementById("v-cat").value=v.category;syncVSub();
     document.getElementById("v-sub").value=v.subTag;
     document.getElementById("v-phone").value=v.phone||"";
     document.getElementById("v-notes").value=v.notes||"";
-  } else {
-    document.getElementById("v-name").value="";
-    document.getElementById("v-phone").value="";
-    document.getElementById("v-notes").value="";
-  }
-  document.getElementById("vendor-overlay").classList.add("open");
-  document.body.style.overflow="hidden";
+  }else{document.getElementById("v-name").value="";document.getElementById("v-phone").value="";document.getElementById("v-notes").value="";}
+  syncVSub();
+  document.getElementById("vendor-overlay").classList.add("open");document.body.style.overflow="hidden";
   setTimeout(()=>document.getElementById("v-name").focus(),100);
 }
-function closeVendorModal(e){if(e&&e.target!==document.getElementById("vendor-overlay"))return;document.getElementById("vendor-overlay").classList.remove("open");document.body.style.overflow="";}
+function closeVModal(e){if(e&&e.target!==document.getElementById("vendor-overlay"))return;document.getElementById("vendor-overlay").classList.remove("open");document.body.style.overflow="";}
 function saveVendor(){
   const name=document.getElementById("v-name").value.trim();
-  if(!name){alert("Vendor name is required.");return;}
+  if(!name){alert("Vendor name required.");return;}
   const vid=document.getElementById("v-id").value;
-  const v={
-    id:vid||uid(),name,
-    category:document.getElementById("v-cat").value,
-    subTag:document.getElementById("v-sub").value,
-    phone:document.getElementById("v-phone").value.trim(),
-    notes:document.getElementById("v-notes").value.trim()
-  };
-  if(vid){const i=projectData.vendors.findIndex(x=>x.id===vid);if(i>=0){const old=projectData.vendors[i];v.purchases=old.purchases||[];v.payments=old.payments||[];projectData.vendors[i]=v;}}
-  else{v.purchases=[];v.payments=[];projectData.vendors.unshift(v);}
-  document.getElementById("vendor-overlay").classList.remove("open");document.body.style.overflow="";
-  markUnsaved();refreshTab();toast(vid?"Vendor updated!":"✅ Vendor added!");
+  const cat=document.getElementById("v-cat").value;
+  const sub=document.getElementById("v-sub").value;
+  if(vid){
+    const i=projectData.vendors.findIndex(x=>x.id===vid);
+    if(i>=0){projectData.vendors[i]={...projectData.vendors[i],name,category:cat,subTag:sub,phone:document.getElementById("v-phone").value.trim(),notes:document.getElementById("v-notes").value.trim()};}
+  }else{
+    projectData.vendors.unshift({id:uid(),name,category:cat,subTag:sub,phone:document.getElementById("v-phone").value.trim(),notes:document.getElementById("v-notes").value.trim(),purchases:[],payments:[]});
+  }
+  closeVModal();markUnsaved();refreshTab();toast(vid?"Vendor updated!":"✅ Vendor added!");
 }
 
-// ══ PURCHASE MODAL ══════════════════════════════════════
-function openPurchaseModal(vid,purId=null){
+// ══ PURCHASE MODAL ═══════════════════════════════════════
+function setPT(mode){
+  purPayMode=mode;
+  ["no","partial","full"].forEach(m=>{
+    const el=document.getElementById("pt-"+m);
+    el.className="pt"+(mode===m?" active-"+mode:"");
+  });
+  document.getElementById("pay-inline").classList.toggle("show",mode!=="no");
+  if(mode==="full"){
+    const amt=parseFloat(document.getElementById("pur-amt").value)||0;
+    document.getElementById("pi-amt").value=amt||"";
+  }
+  if(mode==="no")document.getElementById("pi-amt").value="";
+}
+function onPurAmtChange(){
+  if(purPayMode==="full"){
+    const amt=parseFloat(document.getElementById("pur-amt").value)||0;
+    document.getElementById("pi-amt").value=amt||"";
+  }
+}
+function openPurchaseModal(vid){
   const v=projectData.vendors.find(x=>x.id===vid);if(!v)return;
-  const p=purId?(v.purchases||[]).find(x=>x.id===purId):null;
-  document.getElementById("purchase-modal-title").textContent=p?"✏️ Edit Purchase":"🛒 Add Purchase";
+  document.getElementById("pur-mtitle").textContent="🛒 Add Purchase";
   document.getElementById("pur-vid").value=vid;
-  document.getElementById("pur-id").value=purId||"";
+  document.getElementById("pur-pid").value="";
   const t=vTotals(v);
-  document.getElementById("pur-vendor-info").innerHTML=`
-    <div class="info-box-title">📦 ${v.name} · ${CATS[v.category]?.icon||""} ${v.subTag}</div>
+  document.getElementById("pur-vinfo").innerHTML=`<div class="info-lbl">${CATS[v.category]?.icon||""} ${v.name}</div>
     <div class="info-nums">
-      <div><div class="in-lbl">Total billed</div><div class="in-val" style="color:#E2E8F0;">${fmt(t.totalBill)}</div></div>
-      <div><div class="in-lbl">Purchases</div><div class="in-val" style="color:#94A3B8;">${(v.purchases||[]).length}</div></div>
+      <div><div class="in-l">Purchases</div><div class="in-v" style="color:#94A3B8;">${(v.purchases||[]).length}</div></div>
+      <div><div class="in-l">Total so far</div><div class="in-v" style="color:#E2E8F0;">${fmt(t.purTotal)}</div></div>
+      <div><div class="in-l">Paid</div><div class="in-v" style="color:#10B981;">${fmt(t.payTotal)}</div></div>
     </div>`;
-  document.getElementById("pur-date").value=p?p.date:new Date().toISOString().split("T")[0];
-  document.getElementById("pur-amount").value=p?p.amount:"";
-  document.getElementById("pur-desc").value=p?p.desc:"";
-  document.getElementById("pur-qty").value=p?p.qty||"":"";
-  document.getElementById("pur-unitprice").value=p?p.unitPrice||"":"";
-  document.getElementById("pur-notes").value=p?p.notes||"":"";
-  document.getElementById("purchase-overlay").classList.add("open");
-  document.body.style.overflow="hidden";
+  document.getElementById("pur-date").value=new Date().toISOString().split("T")[0];
+  document.getElementById("pur-amt").value="";document.getElementById("pur-desc").value="";
+  document.getElementById("pur-qty").value="";document.getElementById("pur-up").value="";document.getElementById("pur-notes").value="";
+  setPT("no");
+  document.getElementById("pi-amt").value="";document.getElementById("pi-recv").value="";document.getElementById("pi-ref").value="";document.getElementById("pi-note").value="";
+  document.getElementById("pur-overlay").classList.add("open");document.body.style.overflow="hidden";
   setTimeout(()=>document.getElementById("pur-desc").focus(),100);
 }
-function editPurchase(vid,purId){openPurchaseModal(vid,purId);}
-function closePurchaseModal(e){if(e&&e.target!==document.getElementById("purchase-overlay"))return;document.getElementById("purchase-overlay").classList.remove("open");document.body.style.overflow="";}
+function openEditPurchase(vid,pid){
+  const v=projectData.vendors.find(x=>x.id===vid);if(!v)return;
+  const p=(v.purchases||[]).find(x=>x.id===pid);if(!p)return;
+  document.getElementById("pur-mtitle").textContent="✏️ Edit Purchase";
+  document.getElementById("pur-vid").value=vid;document.getElementById("pur-pid").value=pid;
+  const t=vTotals(v);
+  document.getElementById("pur-vinfo").innerHTML=`<div class="info-lbl">${CATS[v.category]?.icon||""} ${v.name}</div>`;
+  document.getElementById("pur-date").value=p.date;
+  document.getElementById("pur-amt").value=p.amount;
+  document.getElementById("pur-desc").value=p.desc;
+  document.getElementById("pur-qty").value=p.qty||"";
+  document.getElementById("pur-up").value=p.unitPrice||"";
+  document.getElementById("pur-notes").value=p.notes||"";
+  setPT("no"); // editing: don't auto-add payment
+  document.getElementById("pur-overlay").classList.add("open");document.body.style.overflow="hidden";
+}
+function closePModal(e){if(e&&e.target!==document.getElementById("pur-overlay"))return;document.getElementById("pur-overlay").classList.remove("open");document.body.style.overflow="";}
 function savePurchase(){
-  const amount=parseFloat(document.getElementById("pur-amount").value)||0;
+  const amt=parseFloat(document.getElementById("pur-amt").value)||0;
   const desc=document.getElementById("pur-desc").value.trim();
-  if(!desc||!amount){alert("Fill in Description and Amount.");return;}
+  if(!desc||!amt){alert("Fill Description and Amount.");return;}
   const vid=document.getElementById("pur-vid").value;
-  const purId=document.getElementById("pur-id").value;
+  const pid=document.getElementById("pur-pid").value;
   const v=projectData.vendors.find(x=>x.id===vid);if(!v)return;
   if(!v.purchases)v.purchases=[];
+  const purDate=document.getElementById("pur-date").value;
   const p={
-    id:purId||uid(),
-    date:document.getElementById("pur-date").value,
-    desc,amount,
+    id:pid||uid(),date:purDate,desc,amount:amt,
     qty:document.getElementById("pur-qty").value.trim(),
-    unitPrice:parseFloat(document.getElementById("pur-unitprice").value)||0,
-    notes:document.getElementById("pur-notes").value.trim()
+    unitPrice:parseFloat(document.getElementById("pur-up").value)||0,
+    notes:document.getElementById("pur-notes").value.trim(),
+    payStatus:purPayMode
   };
-  if(purId){const i=v.purchases.findIndex(x=>x.id===purId);if(i>=0)v.purchases[i]=p;}
+  if(pid){const i=v.purchases.findIndex(x=>x.id===pid);if(i>=0)v.purchases[i]=p;}
   else v.purchases.push(p);
-  document.getElementById("purchase-overlay").classList.remove("open");document.body.style.overflow="";
-  markUnsaved();refreshTab();toast(purId?"Purchase updated!":"🛒 Purchase added!");
+
+  // Inline payment
+  if(purPayMode!=="no"&&!pid){
+    const piAmt=parseFloat(document.getElementById("pi-amt").value)||0;
+    if(piAmt>0){
+      if(!v.payments)v.payments=[];
+      v.payments.push({
+        id:uid(),date:purDate,amount:piAmt,
+        mode:document.getElementById("pi-mode").value,
+        receiver:document.getElementById("pi-recv").value.trim(),
+        ref:document.getElementById("pi-ref").value.trim(),
+        note:document.getElementById("pi-note").value.trim()||`Payment for: ${desc}`,
+        addedAt:new Date().toISOString()
+      });
+    }
+  }
+  closePModal();markUnsaved();refreshTab();toast(pid?"Purchase updated!":"🛒 Purchase added!");
 }
 
 // ══ PAYMENT MODAL ════════════════════════════════════════
@@ -900,129 +968,136 @@ function openPaymentModal(vid){
   const v=projectData.vendors.find(x=>x.id===vid);if(!v)return;
   const t=vTotals(v);
   document.getElementById("pay-vid").value=vid;
-  document.getElementById("pay-vendor-info").innerHTML=`
-    <div class="info-box-title">💳 ${v.name}</div>
+  document.getElementById("pay-vinfo").innerHTML=`
+    <div class="info-lbl">💳 ${v.name}</div>
     <div class="info-nums">
-      <div><div class="in-lbl">Total Bill</div><div class="in-val" style="color:#E2E8F0;">${fmt(t.totalBill)}</div></div>
-      <div><div class="in-lbl">Paid So Far</div><div class="in-val" style="color:#10B981;">${fmt(t.totalPaid)}</div></div>
-      <div><div class="in-lbl">Remaining</div><div class="in-val" style="color:${t.pending>0?"#EF4444":"#10B981"};">${fmt(t.pending)}</div></div>
+      <div><div class="in-l">Total Bill</div><div class="in-v" style="color:#E2E8F0;">${fmt(t.purTotal||t.totalBill)}</div></div>
+      <div><div class="in-l">Paid</div><div class="in-v" style="color:#10B981;">${fmt(t.payTotal)}</div></div>
+      <div><div class="in-l">Remaining</div><div class="in-v" style="color:${t.pending>0?"#EF4444":"#10B981"};">${fmt(t.pending)}</div></div>
     </div>`;
   document.getElementById("pay-date").value=new Date().toISOString().split("T")[0];
-  document.getElementById("pay-amount").value=t.pending>0?t.pending:"";
+  document.getElementById("pay-amt").value=t.pending>0?t.pending:"";
   document.getElementById("pay-mode").value="Cash";
-  document.getElementById("pay-receiver").value="";
-  document.getElementById("pay-ref").value="";
-  document.getElementById("pay-note").value="";
+  document.getElementById("pay-recv").value="";document.getElementById("pay-ref").value="";document.getElementById("pay-note").value="";
   document.getElementById("pay-prog-wrap").style.display="none";
-  document.getElementById("payment-overlay").classList.add("open");
-  document.body.style.overflow="hidden";
-  setTimeout(()=>document.getElementById("pay-amount").focus(),100);
-  // store totals for progress calc
-  window._payCtx={totalBill:t.totalBill,totalPaid:t.totalPaid};
+  window._payCtx={totalBill:t.purTotal||t.totalBill,totalPaid:t.payTotal};
+  document.getElementById("pay-overlay").classList.add("open");document.body.style.overflow="hidden";
+  setTimeout(()=>document.getElementById("pay-amt").focus(),100);
 }
 function updatePayProg(){
-  const amt=parseFloat(document.getElementById("pay-amount").value)||0;
-  if(!amt||!window._payCtx){document.getElementById("pay-prog-wrap").style.display="none";return;}
-  const {totalBill,totalPaid}=window._payCtx;
-  const newPaid=Math.min(totalBill,totalPaid+amt);
-  const pct=totalBill?Math.min(100,(newPaid/totalBill*100)):0;
-  document.getElementById("pay-prog-wrap").style.display="block";
+  const amt=parseFloat(document.getElementById("pay-amt").value)||0;
+  const pw=document.getElementById("pay-prog-wrap");
+  if(!amt||!window._payCtx){pw.style.display="none";return;}
+  const{totalBill,totalPaid}=window._payCtx;
+  const np=Math.min(totalBill||totalPaid+amt,totalPaid+amt);
+  const pct=totalBill?Math.min(100,(np/totalBill*100)):0;
+  pw.style.display="block";
   document.getElementById("pay-prog-fill").style.width=pct+"%";
-  document.getElementById("pay-prog-text").textContent=fmt(newPaid)+" / "+fmt(totalBill)+" ("+Math.round(pct)+"%)";
+  document.getElementById("pay-prog-text").textContent=fmt(np)+(totalBill?" / "+fmt(totalBill)+" ("+Math.round(pct)+"%)":"");
 }
-function closePaymentModal(e){if(e&&e.target!==document.getElementById("payment-overlay"))return;document.getElementById("payment-overlay").classList.remove("open");document.body.style.overflow="";}
+function closePayModal(e){if(e&&e.target!==document.getElementById("pay-overlay"))return;document.getElementById("pay-overlay").classList.remove("open");document.body.style.overflow="";}
 function savePayment(){
-  const amount=parseFloat(document.getElementById("pay-amount").value)||0;
+  const amt=parseFloat(document.getElementById("pay-amt").value)||0;
   const date=document.getElementById("pay-date").value;
-  if(!amount||!date){alert("Fill in Date and Amount.");return;}
+  if(!amt||!date){alert("Fill Date and Amount.");return;}
   const vid=document.getElementById("pay-vid").value;
   const v=projectData.vendors.find(x=>x.id===vid);if(!v)return;
   if(!v.payments)v.payments=[];
-  v.payments.push({
-    id:uid(),date,amount,
-    mode:document.getElementById("pay-mode").value,
-    receiver:document.getElementById("pay-receiver").value.trim(),
-    ref:document.getElementById("pay-ref").value.trim(),
-    note:document.getElementById("pay-note").value.trim(),
-    addedAt:new Date().toISOString()
-  });
-  document.getElementById("payment-overlay").classList.remove("open");document.body.style.overflow="";
-  markUnsaved();refreshTab();toast("💳 Payment of "+fmt(amount)+" recorded!");
+  v.payments.push({id:uid(),date,amount:amt,mode:document.getElementById("pay-mode").value,receiver:document.getElementById("pay-recv").value.trim(),ref:document.getElementById("pay-ref").value.trim(),note:document.getElementById("pay-note").value.trim(),addedAt:new Date().toISOString()});
+  closePayModal();markUnsaved();refreshTab();toast("💳 Payment of "+fmt(amt)+" recorded!");
+}
+
+// ══ MISC MODAL ═══════════════════════════════════════════
+function openMiscModal(vid=null){
+  // If vid given, add to that specific misc-type vendor, else to global misc
+  document.getElementById("misc-date").value=new Date().toISOString().split("T")[0];
+  document.getElementById("misc-amt").value="";
+  document.getElementById("misc-desc").value="";
+  document.getElementById("misc-notes").value="";
+  fillCatDropdown("misc-cat");
+  document.getElementById("misc-cat").value="Miscellaneous";
+  window._miscVid=vid;
+  document.getElementById("misc-overlay").classList.add("open");document.body.style.overflow="hidden";
+  setTimeout(()=>document.getElementById("misc-desc").focus(),100);
+}
+function closeMiscModal(e){if(e&&e.target!==document.getElementById("misc-overlay"))return;document.getElementById("misc-overlay").classList.remove("open");document.body.style.overflow="";}
+function saveMisc(){
+  const amt=parseFloat(document.getElementById("misc-amt").value)||0;
+  const desc=document.getElementById("misc-desc").value.trim();
+  if(!desc||!amt){alert("Fill Description and Amount.");return;}
+  const date=document.getElementById("misc-date").value;
+  const cat=document.getElementById("misc-cat").value;
+  const mode=document.getElementById("misc-mode").value;
+  const notes=document.getElementById("misc-notes").value.trim();
+
+  // Find or create misc vendor
+  let v=window._miscVid?projectData.vendors.find(x=>x.id===window._miscVid):projectData.vendors.find(x=>x.id===MISC_VID);
+  if(!v){
+    v={id:MISC_VID,name:"Misc / Small Expenses",category:"Miscellaneous",subTag:"Other",phone:"",notes:"Automatically created for small one-off expenses.",purchases:[],payments:[]};
+    projectData.vendors.push(v);
+  }
+  v.category=cat; // update category based on latest misc
+  if(!v.purchases)v.purchases=[];if(!v.payments)v.payments=[];
+  const pid=uid();
+  v.purchases.push({id:pid,date,desc,amount:amt,qty:"",unitPrice:0,notes,payStatus:"full"});
+  v.payments.push({id:uid(),date,amount:amt,mode,receiver:"",ref:"",note:desc,addedAt:new Date().toISOString()});
+  closeMiscModal();markUnsaved();refreshTab();toast("📦 Misc expense added!");
 }
 
 // ══ DELETE ════════════════════════════════════════════════
 function askDel(type,vid,itemId=null){
   delTarget={type,vid,itemId};
-  const msgs={vendor:"Delete this vendor and ALL their purchases & payments?",purchase:"Delete this purchase entry?",payment:"Delete this payment entry?"};
-  document.getElementById("del-msg").textContent=msgs[type]||"This cannot be undone.";
-  document.getElementById("del-overlay").classList.add("open");
-  document.body.style.overflow="hidden";
+  const msgs={vendor:"Delete this vendor and ALL their data?",purchase:"Delete this purchase?",payment:"Delete this payment entry?"};
+  document.getElementById("del-msg").textContent=msgs[type]||"Cannot be undone.";
+  document.getElementById("del-overlay").classList.add("open");document.body.style.overflow="hidden";
 }
 function cancelDel(){delTarget=null;document.getElementById("del-overlay").classList.remove("open");document.body.style.overflow="";}
 function confirmDel(){
   if(!delTarget)return;
-  const {type,vid,itemId}=delTarget;
+  const{type,vid,itemId}=delTarget;
   if(type==="vendor"){projectData.vendors=projectData.vendors.filter(v=>v.id!==vid);}
-  else{
-    const v=projectData.vendors.find(x=>x.id===vid);if(!v)return;
+  else{const v=projectData.vendors.find(x=>x.id===vid);if(!v)return;
     if(type==="purchase")v.purchases=(v.purchases||[]).filter(p=>p.id!==itemId);
     if(type==="payment")v.payments=(v.payments||[]).filter(p=>p.id!==itemId);
   }
   cancelDel();markUnsaved();refreshTab();toast("Deleted.");
 }
 
-// ══ CHARTS ════════════════════════════════════════════════
-function rr(ctx,x,y,w,h,r){
-  if(h<=0||w<=0)return;r=Math.min(r,h/2,w/2);
-  ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.arcTo(x+w,y,x+w,y+r,r);ctx.lineTo(x+w,y+h-r);ctx.arcTo(x+w,y+h,x+w-r,y+h,r);ctx.lineTo(x+r,y+h);ctx.arcTo(x,y+h,x,y+h-r,r);ctx.lineTo(x,y+r);ctx.arcTo(x,y,x+r,y,r);ctx.closePath();
-}
+// ══ CHARTS ═══════════════════════════════════════════════
+function rr(ctx,x,y,w,h,r){if(h<=0||w<=0)return;r=Math.min(r,h/2,w/2);ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.arcTo(x+w,y,x+w,y+r,r);ctx.lineTo(x+w,y+h-r);ctx.arcTo(x+w,y+h,x+w-r,y+h,r);ctx.lineTo(x+r,y+h);ctx.arcTo(x,y+h,x,y+h-r,r);ctx.lineTo(x,y+r);ctx.arcTo(x,y,x+r,y,r);ctx.closePath();}
 function drawPie(id,data,legId){
   const c=document.getElementById(id);if(!c)return;
-  const w=c.offsetWidth||300;c.width=w;c.height=180;
-  const ctx=c.getContext("2d");
-  const total=data.reduce((s,[,v])=>s+v,0)||1;
-  const cx=w/2,cy=80,r=70;let start=-Math.PI/2;
-  data.forEach(([n,v])=>{
-    const a=(v/total)*Math.PI*2;
-    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,start+a);ctx.closePath();
-    ctx.fillStyle=CATS[n]?.color||"#888";ctx.fill();ctx.strokeStyle="#020817";ctx.lineWidth=2;ctx.stroke();start+=a;
-  });
+  const w=c.offsetWidth||300;c.width=w;c.height=180;const ctx=c.getContext("2d");
+  const total=data.reduce((s,[,v])=>s+v,0)||1;const cx=w/2,cy=80,r=70;let start=-Math.PI/2;
+  data.forEach(([n,v])=>{const a=(v/total)*Math.PI*2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,start+a);ctx.closePath();ctx.fillStyle=CATS[n]?.color||"#888";ctx.fill();ctx.strokeStyle="#020817";ctx.lineWidth=2;ctx.stroke();start+=a;});
   ctx.beginPath();ctx.arc(cx,cy,36,0,Math.PI*2);ctx.fillStyle="#0A1628";ctx.fill();
   ctx.fillStyle="#E2E8F0";ctx.font="bold 12px sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(fmtS(total),cx,cy-5);
   ctx.fillStyle="#64748B";ctx.font="10px sans-serif";ctx.fillText("total",cx,cy+8);
   const leg=legId?document.getElementById(legId):null;
-  if(leg)leg.innerHTML=data.map(([n,v])=>`
-    <div style="display:flex;align-items:center;gap:7px;">
-      <span style="width:9px;height:9px;border-radius:50%;background:${CATS[n]?.color||"#888"};display:inline-block;flex-shrink:0;"></span>
-      <span style="color:#CBD5E1;flex:1;font-size:12px;">${CATS[n]?.icon||""} ${n}</span>
-      <span style="color:#F59E0B;font-weight:600;font-size:12px;">${fmtS(v)}</span>
-    </div>`).join("");
+  if(leg)leg.innerHTML=data.map(([n,v])=>`<div style="display:flex;align-items:center;gap:7px;"><span style="width:9px;height:9px;border-radius:50%;background:${CATS[n]?.color||"#888"};display:inline-block;flex-shrink:0;"></span><span style="color:#CBD5E1;flex:1;font-size:12px;">${CATS[n]?.icon||""} ${n}</span><span style="color:#F59E0B;font-weight:600;font-size:12px;">${fmtS(v)}</span></div>`).join("");
 }
 function drawBars(id,months){
   const c=document.getElementById(id);if(!c||!months.length)return;
-  const w=c.offsetWidth||300;c.width=w;c.height=130;
-  const ctx=c.getContext("2d");
+  const w=c.offsetWidth||300;c.width=w;c.height=130;const ctx=c.getContext("2d");
   const pad={l:36,r:8,t:8,b:24};const cw=w-pad.l-pad.r,ch=130-pad.t-pad.b;
-  const maxVal=Math.max(...months.map(m=>m.total))||1;
-  const slotW=cw/months.length,bw=Math.max(5,Math.min(18,slotW/2.5));
-  [0.5,1].forEach(f=>{
-    const y=pad.t+ch*(1-f);
-    ctx.beginPath();ctx.strokeStyle="#1E293B";ctx.lineWidth=1;ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();
-    ctx.fillStyle="#64748B";ctx.font="9px sans-serif";ctx.textAlign="right";ctx.fillText(fmtS(Math.round(maxVal*f)),pad.l-3,y+3);
-  });
+  const maxVal=Math.max(...months.map(m=>Math.max(m.bill||0,m.paid||0)))||1;
+  const slotW=cw/months.length,bw=Math.max(5,Math.min(16,slotW/3));
+  [0.5,1].forEach(f=>{const y=pad.t+ch*(1-f);ctx.beginPath();ctx.strokeStyle="#1E293B";ctx.lineWidth=1;ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();ctx.fillStyle="#64748B";ctx.font="9px sans-serif";ctx.textAlign="right";ctx.fillText(fmtS(Math.round(maxVal*f)),pad.l-3,y+3);});
   months.forEach((m,i)=>{
-    const x=pad.l+(i+0.5)*slotW;const th=Math.max(1,ch*(m.total/maxVal));
-    ctx.fillStyle="#F59E0B";rr(ctx,x-bw/2,pad.t+ch-th,bw,th,2);ctx.fill();
-    ctx.fillStyle="#64748B";ctx.font="9px sans-serif";ctx.textAlign="center";ctx.fillText(m.m.substring(5),x,130-pad.b+12);
+    const x=pad.l+(i+0.5)*slotW;
+    const th=Math.max(1,ch*((m.bill||0)/maxVal));const ph=Math.max(1,ch*((m.paid||0)/maxVal));
+    ctx.fillStyle="#F59E0B";rr(ctx,x-bw-1,pad.t+ch-th,bw,th,2);ctx.fill();
+    ctx.fillStyle="#10B981";rr(ctx,x+1,pad.t+ch-ph,bw,ph,2);ctx.fill();
+    ctx.fillStyle="#64748B";ctx.font="9px sans-serif";ctx.textAlign="center";ctx.fillText(m.m.substring(5),x,130-pad.b+14);
   });
 }
 function drawHBar(id,data){
   const c=document.getElementById(id);if(!c||!data.length)return;
-  const w=c.offsetWidth||300;c.width=w;c.height=Math.max(60,data.length*30+10);
-  const ctx=c.getContext("2d");const maxVal=Math.max(...data.map(([,v])=>v))||1;
-  const lw=100,bz=w-lw-10;const cols=["#F59E0B","#10B981","#6366F1","#EC4899","#14B8A6","#F97316","#8B5CF6"];
+  const w=c.offsetWidth||300;c.width=w;c.height=Math.max(60,data.length*30+10);const ctx=c.getContext("2d");
+  const maxVal=Math.max(...data.map(([,v])=>v))||1;const lw=100,bz=w-lw-10;
+  const cols=["#F59E0B","#10B981","#6366F1","#EC4899","#14B8A6","#F97316","#8B5CF6"];
   data.forEach(([n,v],i)=>{
-    const y=i*30+5;const label=n.length>13?n.substring(0,13)+"…":n;
+    const y=i*30+5,label=n.length>13?n.substring(0,13)+"…":n;
     ctx.fillStyle="#CBD5E1";ctx.font="11px sans-serif";ctx.textAlign="right";ctx.fillText(label,lw-5,y+16);
     ctx.fillStyle="#1E293B";rr(ctx,lw,y+7,bz,14,3);ctx.fill();
     const bw=Math.max(0,(v/maxVal)*bz);ctx.fillStyle=cols[i%cols.length];rr(ctx,lw,y+7,bw,14,3);ctx.fill();
@@ -1035,7 +1110,7 @@ document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key==="s"){
 window.addEventListener("beforeunload",e=>{if(unsaved){e.preventDefault();e.returnValue="";}});
 
 // ══ INIT ═════════════════════════════════════════════════
-if(!window.showSaveFilePicker)document.getElementById("fs-note").innerHTML="⚠️ Use Chrome/Edge for full file support. On other browsers, file downloads on save.";
+if(!window.showSaveFilePicker)document.getElementById("fs-note").innerHTML="⚠️ Use Chrome/Edge on desktop for full file support. Other browsers will download the file on save.";
 renderRecents();
 </script>
 </body>
